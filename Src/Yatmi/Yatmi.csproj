@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <Authors>No0Vad</Authors>
+        <Title>Yatmi</Title>
         <Description>Yet Another Twitch Messaging Interface</Description>
         <Copyright>2022 - No0Vad - MIT License</Copyright>
         <Version>1.1.4</Version>
@@ -10,6 +11,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageProjectUrl>https://github.com/No0Vad/Yatmi</PackageProjectUrl>
         <PlatformTarget>AnyCPU</PlatformTarget>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
