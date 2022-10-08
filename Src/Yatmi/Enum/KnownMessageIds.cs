@@ -29,6 +29,11 @@
         public const string MSG_EMOTES_ONLY = "msg_emoteonly";
         public const string MSG_CHANNEL_SUSPENDED = "msg_channel_suspended";
 
+        /// <summary>
+        /// Elevated message, paid to be shown longer
+        /// </summary>
+        public const string MIDNIGHTSQUID = "midnightsquid";
+
         public const string TIMEOUT_SUCCESS = "timeout_success";
         public const string BAN_SUCCESS = "ban_success";
         public const string DELETE_MESSAGE_SUCCESS = "delete_message_success";

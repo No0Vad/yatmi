@@ -50,6 +50,7 @@ namespace Yatmi.Example
                 client.OnPrimeUpgradeSubscription += Client_OnPrimeUpgradeSubscription;
                 client.OnSubscriptionCounter += Client_OnSubscriptionCounter;
                 client.OnBitsBadge += Client_OnBitsBadge;
+                client.OnElevatedMessage += Client_OnElevatedMessage;
                 client.OnContinuingGiftSubscription += Client_OnContinuingGiftSubscription;
                 client.OnContinuingAnonymousGiftSubscription += Client_OnContinuingAnonymousGiftSubscription;
 
@@ -70,8 +71,8 @@ namespace Yatmi.Example
                     UseSimulatedMessages();
                 }
 
-                await client.ConnectAsync();
-                await client.JoinChannelAsync("no0vad");
+                //await client.ConnectAsync();
+                //await client.JoinChannelAsync("no0vad");
 
                 //_ = Task.Delay(10_000).ContinueWith(async _ =>
                 //{
@@ -261,6 +262,11 @@ namespace Yatmi.Example
         internal static void Client_OnBitsBadge(object sender, BitsBadgeEventArgs e)
         {
             ColorWriteLine($"[{e.Timestamp}][{e.Channel}] {e.AutoSystemMessage}", ConsoleColor.Magenta);
+        }
+        
+        internal static void Client_OnElevatedMessage(object sender, ElevatedMessageEventArgs e)
+        {
+            ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [Elevated] {e.SystemMessage}", ConsoleColor.Magenta);
         }
 
         internal static void Client_OnContinuingGiftSubscription(object sender, ContinuingGiftSubscriptionEventArgs e)

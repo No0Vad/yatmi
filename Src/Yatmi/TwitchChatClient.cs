@@ -186,6 +186,11 @@ namespace Yatmi
         public event EventHandler<ChatMessageEventArgs> OnBitsChatMessage;
 
         /// <summary>
+        /// Fired when a elevated chat message is sent
+        /// </summary>
+        public event EventHandler<ElevatedMessageEventArgs> OnElevatedMessage;
+
+        /// <summary>
         /// Fired when someone is raiding the channel
         /// </summary>
         public event EventHandler<RaidEventArgs> OnRaided;
@@ -1402,6 +1407,18 @@ namespace Yatmi
                     ircEntity.Channel,
                     ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
                     ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
+                ));
+            }
+            else if (msgId == KnownMessageIds.MIDNIGHTSQUID)
+            {
+                OnElevatedMessage?.Invoke(this, new ElevatedMessageEventArgs(
+                    IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                    ircEntity.Timestamp,
+                    ircEntity.Channel,
+                    ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                    ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                    ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_AMOUNT),
+                    ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CURRENCY)
                 ));
             }
             else

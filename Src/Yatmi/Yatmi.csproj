@@ -9,6 +9,7 @@
         <Version>1.1.4</Version>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>Twitch;Chat bot;Yatmi</PackageTags>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageProjectUrl>https://github.com/No0Vad/Yatmi</PackageProjectUrl>
