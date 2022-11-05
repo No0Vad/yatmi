@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
@@ -94,6 +93,15 @@ namespace Yatmi
         /// If true, the emote data will be parsed and passed to the messages. Default is false
         /// </summary>
         public bool ParseEmotesInMessages { get; set; }
+
+        /// <summary>
+        /// Used in the monitoring logic to decide when to log a status, if 0 no logging is made.
+        /// <para>
+        /// How it is used:
+        /// <c>DateTime.Now.Minute % MonitorLogModular == 0</c>
+        /// </para>
+        /// </summary>
+        public int MonitorLogModular { get; set; }
 
 
         #region Events
@@ -923,6 +931,7 @@ namespace Yatmi
 
                             if (string.IsNullOrEmpty(queuedJoin))
                             {
+                                HelperHandleLog("Join command was empty/null");
                                 continue;
                             }
 
@@ -1017,7 +1026,7 @@ namespace Yatmi
                     RaiseDisconnected();
                 }
 
-                if (DateTime.Now.Second % 10 == 0)
+                if (MonitorLogModular > 0 && DateTime.Now.Minute % MonitorLogModular == 0)
                 {
                     HelperHandleLog($"IsConnected = {IsConnected} | ShouldBeConnected = {_shouldBeConnected} | JoinedChannels = {string.Join(", ", _joinedChannels)}");
                 }
@@ -1605,7 +1614,7 @@ namespace Yatmi
                 : message.Replace(_oauth, "***")
             ));
 #if DEBUG
-            Debug.WriteLine(message);
+            System.Diagnostics.Debug.WriteLine(message);
 #endif
         }
 
