@@ -400,6 +400,7 @@ namespace Yatmi
 
             if (!RememberChannelsOnReconnect)
             {
+                HelperHandleLog("Clearing joined channels...");
                 _joinedChannels.Clear();
                 return ok;
             }
@@ -478,8 +479,8 @@ namespace Yatmi
 
             _shouldBeConnected = true;
 
-            // Wait 4 sec, then start the monitor timer loop
-            _monitorTimer.Change(4000, Timeout.Infinite);
+            // Wait 5 sec, then start the monitor timer loop
+            _monitorTimer.Change(5000, Timeout.Infinite);
 
             try
             {
@@ -495,16 +496,19 @@ namespace Yatmi
                 await _client.ConnectAsync(new Uri(url), _tokenSource.Token);
 
                 // Wait a bit
-                await Task.Delay(100);
+                await Task.Delay(250, _tokenSource.Token);
 
                 BeginListening();
 
                 // Wait a bit
-                await Task.Delay(100);
+                await Task.Delay(250, _tokenSource.Token);
 
                 await SendAsync("CAP REQ twitch.tv/membership");
                 await SendAsync("CAP REQ twitch.tv/commands");
                 await SendAsync("CAP REQ twitch.tv/tags");
+
+                // Wait a bit
+                await Task.Delay(250, _tokenSource.Token);
 
                 RaiseConnected();
 
@@ -512,7 +516,7 @@ namespace Yatmi
                 await SendAsync($"NICK {Username}");
 
                 // To give it some time
-                await Task.Delay(150, _tokenSource.Token);
+                await Task.Delay(250, _tokenSource.Token);
 
                 BeginJoinQueue();
                 BeginMessageQueue();
@@ -566,7 +570,11 @@ namespace Yatmi
                 HelperHandleLog($"Not connected! Adding channel '{channel}' to list instead.");
 
                 // Attempt rejoin on reconnect instead
-                _joinedChannels.Add(channel);
+                if (!_joinedChannels.Contains(channel))
+                {
+                    _joinedChannels.Add(channel);
+                }
+
                 return;
             }
 
