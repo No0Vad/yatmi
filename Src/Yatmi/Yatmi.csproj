@@ -6,7 +6,7 @@
         <Title>Yatmi</Title>
         <Description>Yet Another Twitch Messaging Interface</Description>
         <Copyright>2022 - No0Vad - MIT License</Copyright>
-        <Version>1.1.8</Version>
+        <Version>1.1.9</Version>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>Twitch;Chat bot;Yatmi</PackageTags>
@@ -15,6 +15,7 @@
         <PackageProjectUrl>https://github.com/No0Vad/Yatmi</PackageProjectUrl>
         <PlatformTarget>AnyCPU</PlatformTarget>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -51,6 +51,7 @@ namespace Yatmi.Example
                 client.OnSubscriptionCounter += Client_OnSubscriptionCounter;
                 client.OnBitsBadge += Client_OnBitsBadge;
                 client.OnElevatedMessage += Client_OnElevatedMessage;
+                client.OnViewerMilestoneMessage += Client_OnViewerMilestoneMessage;
                 client.OnContinuingGiftSubscription += Client_OnContinuingGiftSubscription;
                 client.OnContinuingAnonymousGiftSubscription += Client_OnContinuingAnonymousGiftSubscription;
 
@@ -86,7 +87,6 @@ namespace Yatmi.Example
 
             ColorWriteLine("Shutdown!", ConsoleColor.Yellow);
         }
-
 
         internal static void Client_OnPing(object sender, TimestampEventArgs e)
         {
@@ -263,10 +263,15 @@ namespace Yatmi.Example
         {
             ColorWriteLine($"[{e.Timestamp}][{e.Channel}] {e.AutoSystemMessage}", ConsoleColor.Magenta);
         }
-        
+
         internal static void Client_OnElevatedMessage(object sender, ElevatedMessageEventArgs e)
         {
             ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [Elevated] {e.SystemMessage}", ConsoleColor.Magenta);
+        }
+
+        internal static void Client_OnViewerMilestoneMessage(object sender, ViewerMilestoneMessageEventArgs e)
+        {
+            ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [Milestone] {e.SystemMessage}", ConsoleColor.Magenta);
         }
 
         internal static void Client_OnContinuingGiftSubscription(object sender, ContinuingGiftSubscriptionEventArgs e)

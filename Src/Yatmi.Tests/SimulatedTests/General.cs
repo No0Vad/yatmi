@@ -348,7 +348,7 @@ namespace Yatmi.Tests.SimulatedTests
 
             await _client.SimulateMessagesAsync(
                 "@badge-info=;badges=;color=#121212;" +
-                $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};msg-id={messageID};mod=0;" + (messageID == "" ? "custom-reward-id=1234;" : "") +
+                $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};msg-id={messageID};mod=0;" + (messageID?.Length == 0 ? "custom-reward-id=1234;" : "") +
                 "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
                 $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
             );

@@ -14,11 +14,10 @@ using Timer = System.Threading.Timer;
 
 namespace Yatmi
 {
-    public sealed class TwitchChatClient : IAsyncDisposable
+    public sealed partial class TwitchChatClient : IAsyncDisposable
     {
         private const string HOST = "irc-ws.chat.twitch.tv";
 
-        private readonly Regex _usernameRegEx;
         private readonly List<string> _joinedChannels;
         private readonly string _oauth;
         private readonly bool _useSsl;
@@ -199,6 +198,11 @@ namespace Yatmi
         public event EventHandler<ElevatedMessageEventArgs> OnElevatedMessage;
 
         /// <summary>
+        /// Fired when a viewer gets a milestone completed
+        /// </summary>
+        public event EventHandler<ViewerMilestoneMessageEventArgs> OnViewerMilestoneMessage;
+
+        /// <summary>
         /// Fired when someone is raiding the channel
         /// </summary>
         public event EventHandler<RaidEventArgs> OnRaided;
@@ -342,9 +346,7 @@ namespace Yatmi
         /// <exception cref="ArgumentException">Cast upon invalid <paramref name="username"/></exception>
         public TwitchChatClient(string username, string oauth, bool isModerator = false, bool useSsl = true)
         {
-            _usernameRegEx = new Regex("^[A-Za-z0-9_]+$", RegexOptions.Compiled);
-
-            if (!_usernameRegEx.IsMatch(username))
+            if (!UsernameRegex().IsMatch(username))
             {
                 throw new ArgumentException("Invalid username provided!", nameof(username));
             }
@@ -552,7 +554,7 @@ namespace Yatmi
                 return;
             }
 
-            if (!_usernameRegEx.IsMatch(channel))
+            if (!UsernameRegex().IsMatch(channel))
             {
                 throw new ArgumentException("Invalid channel name provided!", nameof(channel));
             }
@@ -603,7 +605,7 @@ namespace Yatmi
                 return;
             }
 
-            if (!_usernameRegEx.IsMatch(channel))
+            if (!UsernameRegex().IsMatch(channel))
             {
                 throw new ArgumentException("Invalid channel name provided!", nameof(channel));
             }
@@ -659,7 +661,7 @@ namespace Yatmi
                 return;
             }
 
-            if (!_usernameRegEx.IsMatch(channel))
+            if (!UsernameRegex().IsMatch(channel))
             {
                 throw new ArgumentException("Invalid channel name provided!", nameof(channel));
             }
@@ -706,7 +708,7 @@ namespace Yatmi
                 return;
             }
 
-            if (!_usernameRegEx.IsMatch(username))
+            if (!UsernameRegex().IsMatch(username))
             {
                 throw new ArgumentException("Invalid username provided!", nameof(username));
             }
@@ -1438,6 +1440,18 @@ namespace Yatmi
                     ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CURRENCY)
                 ));
             }
+            else if (msgId == KnownMessageIds.VIEWERMILESTONE)
+            {
+                OnViewerMilestoneMessage?.Invoke(this, new ViewerMilestoneMessageEventArgs(
+                    IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                    ircEntity.Timestamp,
+                    ircEntity.Channel,
+                    ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                    ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                    ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CATEGORY),
+                    ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_VALUE)
+                ));
+            }
             else
             {
                 OnUnknownMessage?.Invoke(this, new RawIrcMessageEventArgs(rawIrcMessage, KnownCommands.USERNOTICE, "MsgID was unknown or missing"));
@@ -1663,5 +1677,8 @@ namespace Yatmi
                 HelperHandleLog("Disposed!");
             });
         }
+
+        [GeneratedRegex("^[A-Za-z0-9_]+$", RegexOptions.Compiled)]
+        private static partial Regex UsernameRegex();
     }
 }

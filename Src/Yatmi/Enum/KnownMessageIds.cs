@@ -33,6 +33,7 @@
         /// Elevated message, paid to be shown longer
         /// </summary>
         public const string MIDNIGHTSQUID = "midnightsquid";
+        public const string VIEWERMILESTONE = "viewermilestone";
 
         public const string TIMEOUT_SUCCESS = "timeout_success";
         public const string BAN_SUCCESS = "ban_success";

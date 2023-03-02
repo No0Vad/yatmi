@@ -25,6 +25,8 @@
         public const string MSG_PARAM_THRESHOLD = "msg-param-threshold";
         public const string MSG_PARAM_AMOUNT = "msg-param-amount";
         public const string MSG_PARAM_CURRENCY = "msg-param-currency";
+        public const string MSG_PARAM_CATEGORY = "msg-param-category";
+        public const string MSG_PARAM_VALUE = "msg-param-value";
 
         public const string REPLY_PARENT_MSG_ID = "reply-parent-msg-id";
 
