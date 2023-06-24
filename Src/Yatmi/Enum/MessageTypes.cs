@@ -1,11 +1,10 @@
-﻿namespace Yatmi.Enum
+﻿namespace Yatmi.Enum;
+
+public enum MessageTypes
 {
-    public enum MessageTypes
-    {
-        Normal,
-        Announcement,
-        Highlight,
-        UserIntroduction,
-        CustomReward
-    }
+    Normal,
+    Announcement,
+    Highlight,
+    UserIntroduction,
+    CustomReward
 }

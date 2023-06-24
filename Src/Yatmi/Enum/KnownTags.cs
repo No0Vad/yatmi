@@ -40,6 +40,15 @@
         public const string SLOW = "slow";
         public const string SUBS_ONLY = "subs-only";
 
+        public const string RETURNING_CHATTER = "returning-chatter";
+
+        public const string PINNED_CHAT_PAID_AMOUNT = "pinned-chat-paid-amount";
+        public const string PINNED_CHAT_PAID_CANONICAL_AMOUNT = "pinned-chat-paid-canonical-amount";
+        public const string PINNED_CHAT_PAID_CURRENCY = "pinned-chat-paid-currency";
+        public const string PINNED_CHAT_PAID_EXPONENT = "pinned-chat-paid-exponent";
+        public const string PINNED_CHAT_PAID_IS_SYSTEM_MESSAGE = "pinned-chat-paid-is-system-message";
+        public const string PINNED_CHAT_PAID_LEVEL = "pinned-chat-paid-level";
+
         // Test are custom ones because use the tags for custom data
         public const string YATMI_IS_ME = "yatmi-is-me";
         public const string YATMI_HOST_TARGET = "yatmi-host-target";

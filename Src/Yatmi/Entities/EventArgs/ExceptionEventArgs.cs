@@ -1,18 +1,17 @@
 ﻿using System;
 
-namespace Yatmi.Entities.EventArgs
+namespace Yatmi.Entities.EventArgs;
+
+public class ExceptionEventArgs : TimestampEventArgs
 {
-    public class ExceptionEventArgs : TimestampEventArgs
+    /// <summary>
+    /// The caught exception
+    /// </summary>
+    public Exception Exception { get; }
+
+
+    public ExceptionEventArgs(Exception exception)
     {
-        /// <summary>
-        /// The caught exception
-        /// </summary>
-        public Exception Exception { get; }
-
-
-        public ExceptionEventArgs(Exception exception)
-        {
-            Exception = exception;
-        }
+        Exception = exception;
     }
 }

@@ -1,59 +1,58 @@
 ﻿using System;
 
-namespace Yatmi.Entities.EventArgs
+namespace Yatmi.Entities.EventArgs;
+
+public class ElevatedMessageEventArgs : BaseEventArgs
 {
-    public class ElevatedMessageEventArgs : BaseEventArgs
+    /// <summary>
+    /// In which channel this event occurred
+    /// </summary>
+    public string Channel { get; }
+
+    /// <summary>
+    /// Username of who cancelled the raid
+    /// </summary>
+    public string Username { get; }
+
+    /// <summary>
+    /// The system message text from Twitch
+    /// </summary>
+    public string SystemMessage { get; }
+
+    /// <summary>
+    /// How much money that was used
+    /// </summary>
+    public decimal Amount { get; }
+
+    /// <summary>
+    /// In what currency it was paid
+    /// </summary>
+    public string Currency { get; }
+
+
+    public ElevatedMessageEventArgs(
+        ParsedIrcMessage parsedIrcMessage,
+        DateTime timestamp,
+        string channel,
+        string username,
+        string systemMessage,
+        string amount,
+        string currency
+    )
+    : base(
+        parsedIrcMessage,
+        timestamp
+    )
     {
-        /// <summary>
-        /// In which channel this event occurred
-        /// </summary>
-        public string Channel { get; }
+        Channel = channel;
+        Username = username;
+        SystemMessage = systemMessage;
 
-        /// <summary>
-        /// Username of who cancelled the raid
-        /// </summary>
-        public string Username { get; }
-
-        /// <summary>
-        /// The system message text from Twitch
-        /// </summary>
-        public string SystemMessage { get; }
-
-        /// <summary>
-        /// How much money that was used
-        /// </summary>
-        public decimal Amount { get; }
-
-        /// <summary>
-        /// In what currency it was paid
-        /// </summary>
-        public string Currency { get; }
-
-
-        public ElevatedMessageEventArgs(
-            ParsedIrcMessage parsedIrcMessage,
-            DateTime timestamp,
-            string channel,
-            string username,
-            string systemMessage,
-            string amount,
-            string currency
-        )
-        : base(
-            parsedIrcMessage,
-            timestamp
-        )
+        if (int.TryParse(amount, out var intAmount))
         {
-            Channel = channel;
-            Username = username;
-            SystemMessage = systemMessage;
-
-            if (int.TryParse(amount, out var intAmount))
-            {
-                Amount = intAmount / 100m;
-            }
-
-            Currency = currency;
+            Amount = intAmount / 100m;
         }
+
+        Currency = currency;
     }
 }

@@ -1,68 +1,67 @@
 ﻿using System;
 using Yatmi.Enum;
 
-namespace Yatmi.Entities.EventArgs
+namespace Yatmi.Entities.EventArgs;
+
+public class ResubscribeEventArgs : BaseEventArgs
 {
-    public class ResubscribeEventArgs : BaseEventArgs
+    /// <summary>
+    /// In which channel this event occurred
+    /// </summary>
+    public string Channel { get; }
+
+    /// <summary>
+    /// Username of who that just resubscribed
+    /// </summary>
+    public string Username { get; }
+
+    /// <summary>
+    /// The resubscribe message, if any
+    /// </summary>
+    public string Message { get; }
+
+    /// <summary>
+    /// If <see cref="TwitchChatClient.ParseEmotesInMessages"/> is true, the emotes data is stored here. If not, this is null
+    /// </summary>
+    public Emotes Emotes { get; }
+
+    /// <summary>
+    /// How many months they have been subscribed
+    /// </summary>
+    public int Months { get; }
+
+    /// <summary>
+    /// What tier of their subscription is
+    /// </summary>
+    public SubPlanTypes SubPlanType { get; }
+
+    /// <summary>
+    /// The system message text from Twitch
+    /// </summary>
+    public string SystemMessage { get; }
+
+
+    public ResubscribeEventArgs(
+        ParsedIrcMessage parsedIrcMessage,
+        DateTime timestamp,
+        string channel,
+        string username,
+        string message,
+        string emotes,
+        int months,
+        string subPlan,
+        string systemMessage
+    ) : base(
+        parsedIrcMessage,
+        timestamp
+    )
     {
-        /// <summary>
-        /// In which channel this event occurred
-        /// </summary>
-        public string Channel { get; }
-
-        /// <summary>
-        /// Username of who that just resubscribed
-        /// </summary>
-        public string Username { get; }
-
-        /// <summary>
-        /// The resubscribe message, if any
-        /// </summary>
-        public string Message { get; }
-
-        /// <summary>
-        /// If <see cref="TwitchChatClient.ParseEmotesInMessages"/> is true, the emotes data is stored here. If not, this is null
-        /// </summary>
-        public Emotes Emotes { get; }
-
-        /// <summary>
-        /// How many months they have been subscribed
-        /// </summary>
-        public int Months { get; }
-
-        /// <summary>
-        /// What tier of their subscription is
-        /// </summary>
-        public SubPlanTypes SubPlanType { get; }
-
-        /// <summary>
-        /// The system message text from Twitch
-        /// </summary>
-        public string SystemMessage { get; }
-
-
-        public ResubscribeEventArgs(
-            ParsedIrcMessage parsedIrcMessage,
-            DateTime timestamp,
-            string channel,
-            string username,
-            string message,
-            string emotes,
-            int months,
-            string subPlan,
-            string systemMessage
-        ) : base(
-            parsedIrcMessage,
-            timestamp
-        )
-        {
-            Channel = channel;
-            Username = username;
-            Message = message;
-            Emotes = Emotes.Parse(emotes);
-            Months = months;
-            SubPlanType = Helper.GetSubPlanType(subPlan);
-            SystemMessage = systemMessage;
-        }
+        Channel = channel;
+        Username = username;
+        Message = message;
+        Emotes = Emotes.Parse(emotes);
+        Months = months;
+        SubPlanType = Helper.GetSubPlanType(subPlan);
+        SystemMessage = systemMessage;
     }
 }

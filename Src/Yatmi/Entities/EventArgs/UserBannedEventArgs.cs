@@ -1,32 +1,31 @@
 ﻿using System;
 
-namespace Yatmi.Entities.EventArgs
+namespace Yatmi.Entities.EventArgs;
+
+public class UserBannedEventArgs : BaseEventArgs
 {
-    public class UserBannedEventArgs : BaseEventArgs
+    /// <summary>
+    /// In which channel this event occurred
+    /// </summary>
+    public string Channel { get; }
+
+    /// <summary>
+    /// Username of who that was banned
+    /// </summary>
+    public string BannedUsername { get; }
+
+
+    public UserBannedEventArgs(
+        ParsedIrcMessage parsedIrcMessage,
+        DateTime timestamp,
+        string channel,
+        string bannedUsername
+    ) : base(
+        parsedIrcMessage,
+        timestamp
+    )
     {
-        /// <summary>
-        /// In which channel this event occurred
-        /// </summary>
-        public string Channel { get; }
-
-        /// <summary>
-        /// Username of who that was banned
-        /// </summary>
-        public string BannedUsername { get; }
-
-
-        public UserBannedEventArgs(
-            ParsedIrcMessage parsedIrcMessage,
-            DateTime timestamp,
-            string channel,
-            string bannedUsername
-        ) : base(
-            parsedIrcMessage,
-            timestamp
-        )
-        {
-            Channel = channel;
-            BannedUsername = bannedUsername;
-        }
+        Channel = channel;
+        BannedUsername = bannedUsername;
     }
 }

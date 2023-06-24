@@ -1,27 +1,26 @@
-﻿namespace Yatmi.Tests
+﻿namespace Yatmi.Tests;
+
+public class TestBase
 {
-    public class TestBase
+    protected TwitchChatClient _client;
+    protected const string DUMMY_CHANNEL = "Best_Channel";
+    protected const string DUMMY_USERNAME = "Best_User";
+
+    protected static string GUID => Guid.NewGuid().ToString();
+
+    [SetUp]
+    public virtual void Setup()
     {
-        protected TwitchChatClient _client;
-        protected const string DUMMY_CHANNEL = "Best_Channel";
-        protected const string DUMMY_USERNAME = "Best_User";
+        _client = new TwitchChatClient();
+    }
 
-        protected static string GUID => Guid.NewGuid().ToString();
 
-        [SetUp]
-        public virtual void Setup()
+    [TearDown]
+    public virtual async Task Teardown()
+    {
+        if (_client?.IsConnected == true)
         {
-            _client = new TwitchChatClient();
-        }
-
-
-        [TearDown]
-        public virtual async Task Teardown()
-        {
-            if (_client?.IsConnected == true)
-            {
-                await _client.DisconnectAsync();
-            }
+            await _client.DisconnectAsync();
         }
     }
 }
