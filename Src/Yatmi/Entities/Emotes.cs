@@ -8,7 +8,7 @@ namespace Yatmi.Entities;
 
 public class Emotes : IEnumerable
 {
-    private static readonly Emotes _emptyInstance = new();
+    private static readonly Emotes _emptyInstance = [];
 
     private readonly List<EmoteEntity> _emotes;
     private string _renderedMessageAsHtml;
@@ -16,7 +16,7 @@ public class Emotes : IEnumerable
 
     public Emotes()
     {
-        _emotes = new List<EmoteEntity>();
+        _emotes = [];
     }
 
 

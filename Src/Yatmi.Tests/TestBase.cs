@@ -20,7 +20,7 @@ public class TestBase
     {
         if (_client?.IsConnected == true)
         {
-            await _client.DisconnectAsync();
+            await _client.DisposeAsync();
         }
     }
 }

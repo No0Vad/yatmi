@@ -351,7 +351,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
             throw new ArgumentException("Invalid username provided!", nameof(username));
         }
 
-        _joinedChannels = new List<string>();
+        _joinedChannels = [];
         Username = username.ToLower();
         _oauth = oauth;
         _useSsl = useSsl;
@@ -564,6 +564,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
 
         if (!bypassCheck && _joinedChannels.Contains(channel))
         {
+            HelperHandleLog($"Already in channel '{channel}'!");
             return;
         }
 
@@ -615,6 +616,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
 
         if (!_joinedChannels.Contains(channel))
         {
+            HelperHandleLog($"Not in channel '{channel}'!");
             return;
         }
 

@@ -344,7 +344,7 @@ internal static class Program
 
     private static void UseSimulatedMessages()
     {
-        var lineCleaner = (string s) =>
+        static string lineCleaner(string s)
         {
             s = s.Trim();
 
@@ -354,7 +354,7 @@ internal static class Program
             }
 
             return s.TrimEnd(',').Trim('"');
-        };
+        }
 
         var fileSystemWatcher = new FileSystemWatcher(@"E:\Data\Yatmi", "Consumer.txt");
 

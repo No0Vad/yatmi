@@ -137,7 +137,7 @@ public class ParsedIrcMessage
         var parts = spanNormal.ToString().Split(' ');
 
         // Local helper for getting the username
-        var getUsername = (string input) =>
+        static string getUsername(string input)
         {
             var span = input.AsSpan();
             var needle = span.IndexOf('!');
@@ -147,10 +147,10 @@ public class ParsedIrcMessage
             }
 
             return "";
-        };
+        }
 
         // Local helper for getting a clean channel name
-        var getCleanChannel = (string input) => input[1..];
+        static string getCleanChannel(string input) => input[1..];
 
         if (parts[1] == KnownCommands.PRIVMSG)
         {

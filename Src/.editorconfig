@@ -5,3 +5,6 @@ dotnet_diagnostic.RCS1036.severity = none
 
 # VSSpell001: Spell Check
 dotnet_diagnostic.VSSpell001.severity = none
+
+# IDE0290: Use primary constructor
+dotnet_diagnostic.IDE0290.severity = none
