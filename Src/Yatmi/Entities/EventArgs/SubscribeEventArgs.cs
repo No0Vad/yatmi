@@ -16,6 +16,11 @@ public class SubscribeEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// UserID of who that decided to subscribe to the channel
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// How long they subscribed for
     /// </summary>
     public int Months { get; }
@@ -36,6 +41,7 @@ public class SubscribeEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         int months,
         string subPlan,
         string systemMessage
@@ -46,6 +52,7 @@ public class SubscribeEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         Months = months;
         SubPlanType = Helper.GetSubPlanType(subPlan);
         SystemMessage = systemMessage;

@@ -10,9 +10,14 @@ public class ViewerMilestoneMessageEventArgs : BaseEventArgs
     public string Channel { get; }
 
     /// <summary>
-    /// Username of who cancelled the raid
+    /// Username of who shared the milestone
     /// </summary>
     public string Username { get; }
+
+    /// <summary>
+    /// UserID of who shared the milestone
+    /// </summary>
+    public string UserID { get; }
 
     /// <summary>
     /// The system message text from Twitch
@@ -35,6 +40,7 @@ public class ViewerMilestoneMessageEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string systemMessage,
         string category,
         string value
@@ -46,6 +52,7 @@ public class ViewerMilestoneMessageEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         SystemMessage = systemMessage;
 
         if (int.TryParse(category, out var intAmount))

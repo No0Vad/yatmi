@@ -3,6 +3,7 @@
     public static class KnownTags
     {
         public const string ID = "id";
+        public const string USER_ID = "user-id";
         public const string BADGES = "badges";
         public const string COLOR = "color";
         public const string SENT_TIMESTAMP = "tmi-sent-ts";
@@ -19,9 +20,11 @@
         public const string MSG_PARAM_SENDER_COUNT = "msg-param-sender-count";
         public const string MSG_PARAM_SENDER_LOGIN = "msg-param-sender-login";
         public const string MSG_PARAM_RECIPIENT_USERNAME = "msg-param-recipient-user-name";
+        public const string MSG_PARAM_RECIPIENT_USER_ID = "msg-param-recipient-id";
         public const string MSG_PARAM_MASS_GIFT_COUNT = "msg-param-mass-gift-count";
         public const string MSG_PARAM_MASS_ORIGIN_ID = "msg-param-origin-id";
         public const string MSG_PARAM_GIFTER_USERNAME = "msg-param-prior-gifter-user-name";
+        public const string MSG_PARAM_GIFTER_USER_ID = "msg-param-prior-gifter-id";
         public const string MSG_PARAM_THRESHOLD = "msg-param-threshold";
         public const string MSG_PARAM_AMOUNT = "msg-param-amount";
         public const string MSG_PARAM_CURRENCY = "msg-param-currency";

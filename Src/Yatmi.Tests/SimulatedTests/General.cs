@@ -292,6 +292,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -309,7 +310,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=;badges=;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=1;flags=;id={GUID};mod=0;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :\u0001ACTION Hello World!\u0001"
         );
 
@@ -331,6 +332,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -349,7 +351,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=;badges=;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};msg-id={messageID};mod=0;" + (messageID?.Length == 0 ? "custom-reward-id=1234;" : "") +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -367,6 +369,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.True, "IsVip");
@@ -384,7 +387,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=subscriber/1;badges=vip/1,subscriber/1;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -402,6 +405,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -427,7 +431,7 @@ public class General : TestBase
             "@badge-info=subscriber/1;badges=subscriber/1;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
             "pinned-chat-paid-amount=1000;pinned-chat-paid-canonical-amount=1000;pinned-chat-paid-currency=USD;pinned-chat-paid-exponent=2;pinned-chat-paid-is-system-message=0;pinned-chat-paid-level=ONE;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -445,6 +449,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.True, "IsVip");
@@ -462,7 +467,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=founder/1;badges=vip/1,founder/0;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -480,6 +485,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -497,7 +503,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=subscriber/1;badges=moderator/1,subscriber/1;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=1;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type=mod :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -515,6 +521,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -532,7 +539,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=founder/1;badges=moderator/1,founder/0;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=1;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type=mod :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -550,6 +557,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -567,7 +575,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=founder/1;badges=broadcaster/1,subscriber/1;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -585,6 +593,7 @@ public class General : TestBase
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
 
                 Assert.That(e.IsStaff, Is.True, "IsStaff");
@@ -603,7 +612,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             "@badge-info=subscriber/1;badges=staff/1;color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
-            "room-id=00000000;subscriber=0;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=0;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
 
@@ -627,8 +636,9 @@ public class General : TestBase
         {
             Assert.Multiple(() =>
             {
-                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
 
                 Assert.That(e.Emotes.RenderMessageAsHtml(e.Message), Is.EqualTo(expected[counter++]), "HTML");
             });
@@ -639,10 +649,10 @@ public class General : TestBase
         _client.ParseEmotesInMessages = true;
 
         await _client.SimulateMessagesAsync(
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
         );
 
         Assert.That(flag.Wait(), Is.True, "Event was not raised!");
@@ -665,8 +675,9 @@ public class General : TestBase
         {
             Assert.Multiple(() =>
             {
-                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
 
                 Assert.That(e.Emotes.RenderMessageAsHtml(e.Message), Is.EqualTo(expected[counter++]), "HTML");
             });
@@ -675,10 +686,10 @@ public class General : TestBase
         };
 
         await _client.SimulateMessagesAsync(
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id=000000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
         );
 
         Assert.That(flag.Wait(), Is.True, "Event was not raised!");
@@ -697,8 +708,9 @@ public class General : TestBase
         {
             Assert.Multiple(() =>
             {
-                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo($"Cheer{cheer} Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -718,8 +730,9 @@ public class General : TestBase
         {
             Assert.Multiple(() =>
             {
-                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo($"Cheer{cheer} Hello World!"), "Message");
 
                 Assert.That(e.IsVip, Is.False, "IsVip");
@@ -738,7 +751,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             $"@badge-info=;badges=bits-leader/1;bits={cheer};color=#121212;" +
             $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
-            "room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id=00000000;" +
+            $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Cheer{cheer} Hello World!"
         );
 
@@ -755,6 +768,7 @@ public class General : TestBase
             Assert.Multiple(() =>
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
             });
 
@@ -763,7 +777,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             $"@badges=twitchconEU2022/1;color=#121212;display-name={DUMMY_USERNAME};emotes=;message-id=00;thread-id=00000000_000000000;" +
-            $"turbo=0;user-id=00000000;user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv " +
+            $"turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv " +
             $"{KnownCommands.WHISPER} {_client.Username} :Hello World!"
         );
 
@@ -780,6 +794,7 @@ public class General : TestBase
             Assert.Multiple(() =>
             {
                 Assert.That(e.Raider, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.RaiderID, Is.EqualTo(DUMMY_USER_ID), "RaiderID");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Viewers, Is.EqualTo(10), "Viewers");
             });
@@ -792,7 +807,7 @@ public class General : TestBase
             $"id={GUID};login={DUMMY_USERNAME};mod=0;msg-id=raid;msg-param-displayName={DUMMY_USERNAME};" +
             $"msg-param-login={DUMMY_USERNAME};msg-param-profileImageURL=https://static-cdn.jtvnw.net/jtv_user_pictures/{GUID}-profile_image-70x70.png;" +
             @$"msg-param-viewerCount=10;room-id=00000000;subscriber=0;system-msg=10\sraiders\sfrom\s{DUMMY_USERNAME}\shave\sjoined!;" +
-            $"tmi-sent-ts=1656969696969;user-id=00000006;user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
+            $"tmi-sent-ts=1656969696969;user-id={DUMMY_USER_ID};user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
         );
 
         Assert.That(flag.Wait(), Is.True, "All event was not raised!");
@@ -895,6 +910,8 @@ public class General : TestBase
             Assert.Multiple(() =>
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.AutoSystemMessage, Is.EqualTo($"{DUMMY_USERNAME} just unlocked the 50000 badge!"), "AutoSystemMessage");
             });
 
@@ -904,7 +921,7 @@ public class General : TestBase
         await _client.SimulateMessagesAsync(
             $"@badge-info=subscriber/1;badges=subscriber/1,bits/50000;color=#121212;display-name={DUMMY_USERNAME};emotes=;flags=;" +
             $"id={GUID};login={DUMMY_USERNAME};mod=0;msg-id=bitsbadgetier;msg-param-threshold=50000;room-id=00000000;subscriber=1;" +
-            @"system-msg=bits\sbadge\stier\snotification;tmi-sent-ts=1656969696969;user-id=000000000;" +
+            $@"system-msg=bits\sbadge\stier\snotification;tmi-sent-ts=1656969696969;user-id={DUMMY_USER_ID};" +
             $"user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
         );
 

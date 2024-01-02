@@ -16,6 +16,11 @@ public class ResubscribeEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// UsernID of who that just resubscribed
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// The resubscribe message, if any
     /// </summary>
     public string Message { get; }
@@ -46,6 +51,7 @@ public class ResubscribeEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string message,
         string emotes,
         int months,
@@ -58,6 +64,7 @@ public class ResubscribeEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         Message = message;
         Emotes = Emotes.Parse(emotes);
         Months = months;

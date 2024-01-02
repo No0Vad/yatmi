@@ -10,9 +10,14 @@ public class ElevatedMessageEventArgs : BaseEventArgs
     public string Channel { get; }
 
     /// <summary>
-    /// Username of who cancelled the raid
+    /// Username of who sent the elevated message
     /// </summary>
     public string Username { get; }
+
+    /// <summary>
+    /// The UserID of who sent the elevated message
+    /// </summary>
+    public string UserID { get; }
 
     /// <summary>
     /// The system message text from Twitch
@@ -35,6 +40,7 @@ public class ElevatedMessageEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string systemMessage,
         string amount,
         string currency
@@ -46,6 +52,7 @@ public class ElevatedMessageEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         SystemMessage = systemMessage;
 
         if (int.TryParse(amount, out var intAmount))

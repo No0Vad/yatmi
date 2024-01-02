@@ -208,7 +208,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
     public event EventHandler<RaidEventArgs> OnRaided;
 
     /// <summary>
-    /// Fired when a raid gets cancelled in a channel
+    /// Fired when a raid gets canceled in a channel
     /// </summary>
     public event EventHandler<RaidCancelledEventArgs> OnRaidCancelled;
 
@@ -1078,6 +1078,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                     ircEntity.Timestamp,
                     ircEntity.Channel,
                     ircEntity.Username,
+                    ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                     ircEntity.Message,
                     ParseEmotesInMessages ? ircEntity.Tags.GetStringValue(KnownTags.EMOTES) : null,
                     bits,
@@ -1117,6 +1118,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 IncludeParsedIrcMessagesInEvents ? ircEntity : null,
                 ircEntity.Timestamp,
                 ircEntity.Username,
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Message
             ));
         }
@@ -1224,6 +1226,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Message,
                 ParseEmotesInMessages ? ircEntity.Tags.GetStringValue(KnownTags.EMOTES) : null,
                 ircEntity.Tags.GetIntValue(KnownTags.BITS),
@@ -1250,6 +1253,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_CUMULATIVE_MONTHS),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_SUB_PLAN),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
@@ -1271,6 +1275,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Message,
                 ParseEmotesInMessages ? ircEntity.Tags.GetStringValue(KnownTags.EMOTES) : null,
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_CUMULATIVE_MONTHS),
@@ -1303,7 +1308,9 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                     ircEntity.Timestamp,
                     ircEntity.Channel,
                     login,
+                    ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                     ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_RECIPIENT_USERNAME),
+                    ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_RECIPIENT_USER_ID),
                     ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_SENDER_COUNT),
                     fromAnonymousCommunityGift,
                     ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_SUB_PLAN),
@@ -1325,7 +1332,9 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFTER_USERNAME),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFTER_USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
             ));
         }
@@ -1336,8 +1345,11 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFTER_USERNAME),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFTER_USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_RECIPIENT_USERNAME),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_RECIPIENT_USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
             ));
         }
@@ -1361,6 +1373,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 login,
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_MASS_GIFT_COUNT),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_SENDER_COUNT),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_SUB_PLAN),
@@ -1377,6 +1390,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_SENDER_LOGIN),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
             ));
@@ -1388,6 +1402,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_SUB_PLAN),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
             ));
@@ -1399,6 +1414,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
             ));
         }
@@ -1409,6 +1425,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Message,
                 ircEntity.Tags.GetStringValue(KnownTags.DISPLAY_NAME),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_THRESHOLD)
@@ -1421,6 +1438,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_VIEWER_COUNT)
             ));
         }
@@ -1431,6 +1449,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG)
             ));
         }
@@ -1441,6 +1460,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_AMOUNT),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CURRENCY)
@@ -1453,6 +1473,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CATEGORY),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_VALUE)
@@ -1552,6 +1573,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                         ircEntity.Timestamp,
                         ircEntity.Channel,
                         ircEntity.Message,
+                        ircEntity.Tags.GetStringValue(KnownTags.TARGET_USER_ID),
                         timeoutDuration
                     ));
                 }
@@ -1561,7 +1583,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                         IncludeParsedIrcMessagesInEvents ? ircEntity : null,
                         ircEntity.Timestamp,
                         ircEntity.Channel,
-                        ircEntity.Message
+                        ircEntity.Message,
+                        ircEntity.Tags.GetStringValue(KnownTags.TARGET_USER_ID)
                     ));
                 }
             }
@@ -1581,6 +1604,7 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
                 ircEntity.Message
             ));
         }

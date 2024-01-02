@@ -15,6 +15,11 @@ public class ContinuingAnonymousGiftSubscriptionEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// The UserID of who that decided to continue a subscription they originally was gifted anonymously
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// The system message text from Twitch
     /// </summary>
     public string SystemMessage { get; }
@@ -25,6 +30,7 @@ public class ContinuingAnonymousGiftSubscriptionEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string systemMessage
     ) : base(
         parsedIrcMessage,
@@ -33,6 +39,7 @@ public class ContinuingAnonymousGiftSubscriptionEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         SystemMessage = systemMessage;
     }
 }

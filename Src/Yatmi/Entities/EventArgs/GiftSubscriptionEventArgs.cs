@@ -16,9 +16,19 @@ public class GiftSubscriptionEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// The UserID of who sent a gift subscription to someone
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// Username of who were gifted a subscription
     /// </summary>
     public string RecipientUsername { get; }
+
+    /// <summary>
+    /// The UserID of who were gifted a subscription
+    /// </summary>
+    public string RecipientUserID { get; }
 
     /// <summary>
     /// How many subscriptions they have gifted in total to the community
@@ -46,7 +56,9 @@ public class GiftSubscriptionEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string recipientUsername,
+        string recipientUserId,
         int totalSubsGifted,
         bool fromAnanonymousCommunityGift,
         string subPlan,
@@ -58,7 +70,9 @@ public class GiftSubscriptionEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         RecipientUsername = recipientUsername;
+        RecipientUserID = recipientUserId;
         TotalSubsGifted = totalSubsGifted;
         SubPlanType = Helper.GetSubPlanType(subPlan);
         SystemMessage = systemMessage;

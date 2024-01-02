@@ -5,6 +5,7 @@ public class TestBase
     protected TwitchChatClient _client;
     protected const string DUMMY_CHANNEL = "Best_Channel";
     protected const string DUMMY_USERNAME = "Best_User";
+    protected const string DUMMY_USER_ID = "00001337";
 
     protected static string GUID => Guid.NewGuid().ToString();
 

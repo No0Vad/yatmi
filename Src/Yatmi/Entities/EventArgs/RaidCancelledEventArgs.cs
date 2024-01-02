@@ -10,9 +10,14 @@ public class RaidCancelledEventArgs : BaseEventArgs
     public string Channel { get; }
 
     /// <summary>
-    /// Username of who cancelled the raid
+    /// Username of who canceled the raid
     /// </summary>
     public string Username { get; }
+
+    /// <summary>
+    /// The UserID of who canceled the raid
+    /// </summary>
+    public string UserID { get; }
 
     /// <summary>
     /// The system message text from Twitch
@@ -25,6 +30,7 @@ public class RaidCancelledEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string systemMessage
     ) : base(
         parsedIrcMessage,
@@ -33,6 +39,7 @@ public class RaidCancelledEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         SystemMessage = systemMessage;
     }
 }

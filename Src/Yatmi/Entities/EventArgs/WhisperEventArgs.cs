@@ -5,9 +5,14 @@ namespace Yatmi.Entities.EventArgs;
 public class WhisperEventArgs : BaseEventArgs
 {
     /// <summary>
-    /// User who send the bot a whisper message
+    /// Username who send the bot a whisper message
     /// </summary>
     public string Username { get; }
+
+    /// <summary>
+    /// UserID who send the bot a whisper message
+    /// </summary>
+    public string UserID { get; }
 
     /// <summary>
     /// The message that was sent
@@ -19,6 +24,7 @@ public class WhisperEventArgs : BaseEventArgs
         ParsedIrcMessage parsedIrcMessage,
         DateTime timestamp,
         string username,
+        string userId,
         string message
     ) : base(
         parsedIrcMessage,
@@ -26,6 +32,7 @@ public class WhisperEventArgs : BaseEventArgs
     )
     {
         Username = username;
+        UserID = userId;
         Message = message;
     }
 }

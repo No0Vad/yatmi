@@ -14,12 +14,18 @@ public class UserBannedEventArgs : BaseEventArgs
     /// </summary>
     public string BannedUsername { get; }
 
+    /// <summary>
+    /// UserID of who that was banned
+    /// </summary>
+    public string BannedUserID { get; }
+
 
     public UserBannedEventArgs(
         ParsedIrcMessage parsedIrcMessage,
         DateTime timestamp,
         string channel,
-        string bannedUsername
+        string bannedUsername,
+        string bannedUserId
     ) : base(
         parsedIrcMessage,
         timestamp
@@ -27,5 +33,6 @@ public class UserBannedEventArgs : BaseEventArgs
     {
         Channel = channel;
         BannedUsername = bannedUsername;
+        BannedUserID = bannedUserId;
     }
 }

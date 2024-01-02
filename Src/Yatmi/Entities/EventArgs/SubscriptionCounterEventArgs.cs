@@ -16,6 +16,11 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// UserID of the subscription
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// How many subscriptions there were
     /// </summary>
     public int SubscriptionCount { get; set; }
@@ -31,6 +36,7 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         int subscriptionCount,
         SubPlanTypes subPlanType
     ) : base(
@@ -40,6 +46,7 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         SubscriptionCount = subscriptionCount;
         SubPlanType = subPlanType;
     }
@@ -52,6 +59,7 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
             e.Timestamp,
             e.Channel,
             e.Username,
+            e.UserID,
             1,
             e.SubPlanType
         );
@@ -65,6 +73,7 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
             e.Timestamp,
             e.Channel,
             e.Username,
+            e.UserID,
             1,
             e.SubPlanType
         );
@@ -78,6 +87,7 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
             e.Timestamp,
             e.Channel,
             e.Username,
+            e.UserID,
             1,
             e.SubPlanType
         );
@@ -91,6 +101,7 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
             e.Timestamp,
             e.Channel,
             e.Username,
+            e.UserID,
             e.SubscriptionsGifted,
             e.SubPlanType
         );
@@ -104,6 +115,7 @@ public class SubscriptionCounterEventArgs : BaseEventArgs
             e.Timestamp,
             e.Channel,
             e.Username,
+            e.UserID,
             1,
             SubPlanTypes.Unknown
         );

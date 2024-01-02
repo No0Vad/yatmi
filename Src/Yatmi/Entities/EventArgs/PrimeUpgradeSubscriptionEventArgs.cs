@@ -16,6 +16,11 @@ public class PrimeUpgradeSubscriptionEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// The UserID of who that decided to upgrade their subscription from prime to a occurring subscription
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// What tier of subscription they upgrade too
     /// </summary>
     public SubPlanTypes SubPlanType { get; }
@@ -31,6 +36,7 @@ public class PrimeUpgradeSubscriptionEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string subPlan,
         string systemMessage
     ) : base(
@@ -40,6 +46,7 @@ public class PrimeUpgradeSubscriptionEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         SubPlanType = Helper.GetSubPlanType(subPlan);
         SystemMessage = systemMessage;
     }

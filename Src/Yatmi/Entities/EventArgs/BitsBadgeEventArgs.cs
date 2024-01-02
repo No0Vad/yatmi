@@ -15,6 +15,11 @@ public class BitsBadgeEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// UserID of who is sharing their bits badge
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// Their message, if any
     /// </summary>
     public string Message { get; }
@@ -30,6 +35,7 @@ public class BitsBadgeEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string message,
         string displayName,
         int bitsBadge
@@ -40,6 +46,7 @@ public class BitsBadgeEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         Message = message;
         AutoSystemMessage = $"{displayName} just unlocked the {bitsBadge} badge!";
     }

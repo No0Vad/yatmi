@@ -15,6 +15,11 @@ public class RaidEventArgs : BaseEventArgs
     public string Raider { get; }
 
     /// <summary>
+    /// UserID of who is raiding the channel
+    /// </summary>
+    public string RaiderID { get; }
+
+    /// <summary>
     /// How many viewers they brought
     /// </summary>
     public int Viewers { get; }
@@ -25,6 +30,7 @@ public class RaidEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string raider,
+        string raiderId,
         int viewers
     ) : base(
         parsedIrcMessage,
@@ -33,6 +39,7 @@ public class RaidEventArgs : BaseEventArgs
     {
         Channel = channel;
         Raider = raider;
+        RaiderID = raiderId;
         Viewers = viewers;
     }
 }

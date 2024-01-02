@@ -18,6 +18,7 @@ public class Moderation : TestBase
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.TimedoutUsername, Is.EqualTo(DUMMY_USERNAME), "TimedoutUsername");
+                Assert.That(e.TimedoutUserID, Is.EqualTo(DUMMY_USER_ID), "TimedoutUserID");
                 Assert.That(e.Duration, Is.EqualTo(TimeSpan.FromSeconds(seconds)), "Duration");
             });
 
@@ -25,7 +26,7 @@ public class Moderation : TestBase
         };
 
         await _client.SimulateMessagesAsync(
-            $"@ban-duration={seconds};room-id=00000000;target-user-id=000000000;tmi-sent-ts=1656969696969 :tmi.twitch.tv {KnownCommands.CLEARCHAT} #{DUMMY_CHANNEL} :{DUMMY_USERNAME}"
+            $"@ban-duration={seconds};room-id=00000000;target-user-id={DUMMY_USER_ID};tmi-sent-ts=1656969696969 :tmi.twitch.tv {KnownCommands.CLEARCHAT} #{DUMMY_CHANNEL} :{DUMMY_USERNAME}"
         );
 
         Assert.That(flag.Wait(), Is.True, "Event was not raised!");
@@ -42,13 +43,14 @@ public class Moderation : TestBase
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.BannedUsername, Is.EqualTo(DUMMY_USERNAME), "BannedUsername");
+                Assert.That(e.BannedUserID, Is.EqualTo(DUMMY_USER_ID), "BannedUserID");
             });
 
             flag.Set();
         };
 
         await _client.SimulateMessagesAsync(
-            $"@room-id=00000000;target-user-id=000000000;tmi-sent-ts=1656969696969 :tmi.twitch.tv {KnownCommands.CLEARCHAT} #{DUMMY_CHANNEL} :{DUMMY_USERNAME}"
+            $"@room-id=00000000;target-user-id={DUMMY_USER_ID};tmi-sent-ts=1656969696969 :tmi.twitch.tv {KnownCommands.CLEARCHAT} #{DUMMY_CHANNEL} :{DUMMY_USERNAME}"
         );
 
         Assert.That(flag.Wait(), Is.True, "Event was not raised!");

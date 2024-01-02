@@ -15,9 +15,19 @@ public class CommunityPayForwardEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// The UserID of the user
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// Username who they originally got a gift subscription from
     /// </summary>
     public string GifterUsername { get; }
+
+    /// <summary>
+    /// UserID who they originally got a gift subscription from
+    /// </summary>
+    public string GifterUserID { get; }
 
     /// <summary>
     /// The system message text from Twitch
@@ -30,7 +40,9 @@ public class CommunityPayForwardEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string gifterUsername,
+        string gifterUserID,
         string systemMessage
     ) : base(
         parsedIrcMessage,
@@ -39,6 +51,8 @@ public class CommunityPayForwardEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
+        GifterUserID = gifterUserID;
         GifterUsername = gifterUsername;
         SystemMessage = systemMessage;
     }

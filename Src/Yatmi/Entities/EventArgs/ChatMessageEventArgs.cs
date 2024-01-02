@@ -16,6 +16,11 @@ public class ChatMessageEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// The UserID of the user
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// The actual message
     /// </summary>
     public string Message { get; }
@@ -96,6 +101,7 @@ public class ChatMessageEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string message,
         string emotes,
         int bits,
@@ -114,6 +120,7 @@ public class ChatMessageEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         Message = message;
         Emotes = Emotes.Parse(emotes);
         Bits = bits;

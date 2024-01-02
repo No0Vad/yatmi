@@ -15,6 +15,11 @@ public class ContinuingGiftSubscriptionEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// The UserID of who that decided to continue a subscription they originally was gifted
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// Username who they originally got a gift subscription from
     /// </summary>
     public string GifterUsername { get; }
@@ -30,6 +35,7 @@ public class ContinuingGiftSubscriptionEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string gifterUsername,
         string systemMessage
     ) : base(
@@ -39,6 +45,7 @@ public class ContinuingGiftSubscriptionEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         GifterUsername = gifterUsername;
         SystemMessage = systemMessage;
     }

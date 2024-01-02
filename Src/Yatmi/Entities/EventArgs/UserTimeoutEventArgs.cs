@@ -15,6 +15,11 @@ public class UserTimeoutEventArgs : BaseEventArgs
     public string TimedoutUsername { get; }
 
     /// <summary>
+    /// UserID of who that was timed out
+    /// </summary>
+    public string TimedoutUserID { get; }
+
+    /// <summary>
     /// How long they were timed out for
     /// </summary>
     public TimeSpan Duration { get; }
@@ -25,6 +30,7 @@ public class UserTimeoutEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string timedoutUsername,
+        string timedoutUserId,
         int durationInSeconds
     ) : base(
         parsedIrcMessage,
@@ -33,6 +39,7 @@ public class UserTimeoutEventArgs : BaseEventArgs
     {
         Channel = channel;
         TimedoutUsername = timedoutUsername;
+        TimedoutUserID = timedoutUserId;
         Duration = TimeSpan.FromSeconds(durationInSeconds);
     }
 }

@@ -15,14 +15,29 @@ public class SubscriptionPayForwardEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
+    /// UserID of who that decided to pay forward their subscription they were gifted, but gifting a subscription to someone else
+    /// </summary>
+    public string UserID { get; }
+
+    /// <summary>
     /// Username who they originally got a gift subscription from
     /// </summary>
     public string GifterUsername { get; }
 
     /// <summary>
+    /// UserID who they originally got a gift subscription from
+    /// </summary>
+    public string GifterUserID { get; }
+
+    /// <summary>
     /// Username who they decided to gift a subscription to
     /// </summary>
     public string ReceiverUsername { get; }
+
+    /// <summary>
+    /// UserID who they decided to gift a subscription to
+    /// </summary>
+    public string ReceiverUserID { get; }
 
     /// <summary>
     /// The system message text from Twitch
@@ -35,8 +50,11 @@ public class SubscriptionPayForwardEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
+        string userId,
         string gifterUsername,
+        string gifterUserId,
         string receiverUsername,
+        string receiverUserId,
         string systemMessage
     ) : base(
         parsedIrcMessage,
@@ -45,8 +63,11 @@ public class SubscriptionPayForwardEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
+        UserID = userId;
         GifterUsername = gifterUsername;
+        GifterUserID = gifterUserId;
         ReceiverUsername = receiverUsername;
+        ReceiverUserID = receiverUserId;
         SystemMessage = systemMessage;
     }
 }
