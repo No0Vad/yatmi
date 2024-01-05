@@ -25,6 +25,11 @@ public class BitsBadgeEventArgs : BaseEventArgs
     public string Message { get; }
 
     /// <summary>
+    /// The bits badge unlocked
+    /// </summary>
+    public int BitsBadge { get; }
+
+    /// <summary>
     /// A system message auto created from the parameters (not sent from Twitch)
     /// </summary>
     public string AutoSystemMessage { get; }
@@ -48,6 +53,7 @@ public class BitsBadgeEventArgs : BaseEventArgs
         Username = username;
         UserID = userId;
         Message = message;
+        BitsBadge = bitsBadge;
         AutoSystemMessage = $"{displayName} just unlocked the {bitsBadge} badge!";
     }
 }

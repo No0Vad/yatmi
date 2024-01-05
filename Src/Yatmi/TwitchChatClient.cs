@@ -1089,7 +1089,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                     ircEntity.Tags.ContainsKey(KnownTags.YATMI_IS_ME),
                     ircEntity.Tags.GetStringValue(KnownTags.FIRST_MSG) == "1",
                     ircEntity.Tags.GetStringValue(KnownTags.RETURNING_CHATTER) == "1",
-                    PinnedChatPaidEntity.TryCreate(ircEntity.Tags)
+                    PinnedChatPaidEntity.TryCreate(ircEntity.Tags),
+                    ReplyThreadEntity.TryCreate(ircEntity.Tags)
                 );
             });
 
@@ -1237,7 +1238,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Tags.ContainsKey(KnownTags.YATMI_IS_ME),
                 ircEntity.Tags.GetStringValue(KnownTags.FIRST_MSG) == "1",
                 ircEntity.Tags.GetStringValue(KnownTags.RETURNING_CHATTER) == "1",
-                PinnedChatPaidEntity.TryCreate(ircEntity.Tags) // Can't be announcement and paid to my knowledge, but just in case.
+                PinnedChatPaidEntity.TryCreate(ircEntity.Tags), // Can't be both announcement AND paid to my knowledge, but just in case.
+                ReplyThreadEntity.TryCreate(ircEntity.Tags) // Can't be both announcement AND reply to my knowledge, but just in case.
             ));
         }
         else if (msgId == KnownMessageIds.SUB)
@@ -1604,8 +1606,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Timestamp,
                 ircEntity.Channel,
                 ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
-                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
-                ircEntity.Message
+                ircEntity.Message,
+                ircEntity.Tags.GetStringValue(KnownTags.TARGET_MESSAGE_ID)
             ));
         }
     }

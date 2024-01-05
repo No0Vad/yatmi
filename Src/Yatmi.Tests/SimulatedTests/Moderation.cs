@@ -79,6 +79,7 @@ public class Moderation : TestBase
     public async Task OnChatMessageDeleted()
     {
         var flag = new Flag();
+        var guid = NewGuid;
 
         _client.OnChatMessageDeleted += (s, e) =>
         {
@@ -86,13 +87,14 @@ public class Moderation : TestBase
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.DeletedMessage, Is.EqualTo("Bad message!"), "DeletedMessage");
+                Assert.That(e.DeletedMessageID, Is.EqualTo(guid), "DeletedMessageID");
             });
 
             flag.Set();
         };
 
         await _client.SimulateMessagesAsync(
-            $"@login={DUMMY_USERNAME};room-id=;target-msg-id={GUID};" +
+            $"@login={DUMMY_USERNAME};room-id=;target-msg-id={guid};" +
             $"tmi-sent-ts=1656969696969 :tmi.twitch.tv {KnownCommands.CLEARMSG} #{DUMMY_CHANNEL} :Bad message!"
         );
 

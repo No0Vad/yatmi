@@ -32,10 +32,18 @@
         public const string MSG_PARAM_VALUE = "msg-param-value";
 
         public const string REPLY_PARENT_MSG_ID = "reply-parent-msg-id";
+        public const string REPLY_PARENT_MSG_USER_ID = "reply-parent-user-id";
+        public const string REPLY_PARENT_MSG_USER_LOGIN = "reply-parent-user-login";
+        public const string REPLY_PARENT_MSG_BODY = "reply-parent-msg-body";
+
+        public const string REPLY_THREAD_PARENT_MSG_ID = "reply-thread-parent-msg-id";
+        public const string REPLY_THREAD_PARENT_USER_ID = "reply-thread-parent-user-id";
+        public const string REPLY_THREAD_PARENT_USER_LOGIN = "reply-thread-parent-user-login";
 
         public const string CUSTOM_REWARD_ID = "custom-reward-id";
         public const string SYSTEM_MSG = "system-msg";
         public const string TARGET_USER_ID = "target-user-id";
+        public const string TARGET_MESSAGE_ID = "target-msg-id";
         public const string BAN_DURATION = "ban-duration";
 
         public const string EMOTES_ONLY = "emote-only";

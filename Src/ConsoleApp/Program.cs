@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +16,8 @@ internal static class Program
         await using var client = new TwitchChatClient();
         _client = client;
 
-        client.OnPing += Client_OnPing;
-        client.OnLog += Client_OnLog;
+        //client.OnPing += Client_OnPing;
+        //client.OnLog += Client_OnLog;
 
         client.OnRawIrcMessage += Client_OnRawIrcMessage;
         client.OnUnknownMessage += Client_OnUnknownMessage;
@@ -29,11 +28,11 @@ internal static class Program
         client.OnConnected += Client_OnConnected;
         client.OnDisconnected += Client_OnDisconnected;
 
-        client.OnChannelJoined += Client_OnChannelJoined;
-        client.OnChannelParted += Client_OnChannelParted;
+        //client.OnChannelJoined += Client_OnChannelJoined;
+        //client.OnChannelParted += Client_OnChannelParted;
         //client.OnUserJoinedChannel += Client_OnUserJoinedChannel;
         //client.OnUserPartedChannel += Client_OnUserPartedChannel;
-        client.OnChatMessage += Client_OnChatMessage;
+        //client.OnChatMessage += Client_OnChatMessage;
         client.OnWhisperMessage += Client_OnWhisperMessage;
         client.OnBitsChatMessage += Client_OnBitsChatMessage;
         client.OnRaided += Client_OnRaided;
@@ -101,9 +100,14 @@ internal static class Program
     internal static void Client_OnRawIrcMessage(object sender, RawIrcMessageEventArgs e)
     {
         // Save raw IRC message for analyze 
-        if (e.RawIrcMessage.Contains(" PRIVMSG "))
+        if (
+            e.RawIrcMessage.Contains(" PRIVMSG ")
+            || e.RawIrcMessage.Contains(" PART ")
+            || e.RawIrcMessage.Contains(" JOIN ")
+            || e.RawIrcMessage.StartsWith("PING ")
+        )
         {
-            return;
+            //return;
         }
 
         if (!Env.DataFolder.Exists || !Directory.Exists(Env.DataFolder.Value))
@@ -312,7 +316,7 @@ internal static class Program
 
     internal static void Client_OnChatMessageDeleted(object sender, ChatMessageDeletedEventArgs e)
     {
-        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] Message from {e.Username} (ID:{e.UserID}) was deleted! ** {e.DeletedMessage} **", ConsoleColor.White);
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] Message from {e.Username} was deleted! ** {e.DeletedMessage} **", ConsoleColor.White);
     }
 
     internal static void Client_OnNamesList(object sender, NamesListEventArgs e)
@@ -322,11 +326,15 @@ internal static class Program
 
     internal static void Client_OnRoomState(object sender, RoomStateEventArgs e)
     {
-        ColorWriteLines(new[]
+        var lines = new[]
         {
-            $"[{e.Timestamp}][{e.Channel}] EmotesOnly = {e.EmoteOnly} | FollowersOnly = {e.FollowersOnly}, {e.FollowersTime}",
-            $"[{e.Timestamp}][{e.Channel}] SlowMode = {e.SlowMode} | SubsOnly = {e.SubsOnly}",
-        }, ConsoleColor.Cyan);
+            $"EmotesOnly = {e.EmoteOnly}",
+            $"FollowersOnly = {e.FollowersOnly}, {e.FollowersTime}",
+            $"SlowMode = {e.SlowMode}",
+            $"SubsOnly = {e.SubsOnly}",
+        };
+
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] {string.Join(" | ", lines)}", ConsoleColor.Cyan);
     }
 
     internal static void Client_OnEmoteOnlyState(object sender, EmoteOnlyStateEventArgs e)
@@ -406,31 +414,6 @@ internal static class Program
         {
             Console.ForegroundColor = color.Value;
             Console.WriteLine(message);
-            Console.ResetColor();
-        }
-    }
-
-    private static void ColorWriteLines(IEnumerable<string> messages, ConsoleColor? color = null)
-    {
-        if (color == null)
-        {
-            foreach (var message in messages)
-            {
-                Console.WriteLine(message);
-            }
-
-            return;
-        }
-
-        lock (_lock)
-        {
-            Console.ForegroundColor = color.Value;
-
-            foreach (var message in messages)
-            {
-                Console.WriteLine(message);
-            }
-
             Console.ResetColor();
         }
     }

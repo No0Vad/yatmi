@@ -302,6 +302,9 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.True, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.True, "IsMe");
+
+                Assert.That(e.PaidChat, Is.Null, "PaidChat");
+                Assert.That(e.ReplyThread, Is.Null, "ReplyThread");
             });
 
             flag.Set();
@@ -309,7 +312,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=;badges=;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=1;flags=;id={GUID};mod=0;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=1;flags=;id={NewGuid};mod=0;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :\u0001ACTION Hello World!\u0001"
         );
@@ -350,7 +353,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=;badges=;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};msg-id={messageID};mod=0;" + (messageID?.Length == 0 ? "custom-reward-id=1234;" : "") +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};msg-id={messageID};mod=0;" + (messageID?.Length == 0 ? "custom-reward-id=1234;" : "") +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
@@ -386,7 +389,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=subscriber/1;badges=vip/1,subscriber/1;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=0;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
@@ -429,7 +432,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=subscriber/1;badges=subscriber/1;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=0;" +
             "pinned-chat-paid-amount=1000;pinned-chat-paid-canonical-amount=1000;pinned-chat-paid-currency=USD;pinned-chat-paid-exponent=2;pinned-chat-paid-is-system-message=0;pinned-chat-paid-level=ONE;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
@@ -466,7 +469,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=founder/1;badges=vip/1,founder/0;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=0;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
@@ -502,7 +505,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=subscriber/1;badges=moderator/1,subscriber/1;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=1;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=1;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type=mod :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
@@ -538,7 +541,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=founder/1;badges=moderator/1,founder/0;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=1;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=1;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type=mod :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
@@ -574,7 +577,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=founder/1;badges=broadcaster/1,subscriber/1;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=0;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
@@ -611,7 +614,7 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             "@badge-info=subscriber/1;badges=staff/1;color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=0;" +
             $"room-id=00000000;subscriber=0;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
         );
@@ -649,10 +652,10 @@ public class General : TestBase
         _client.ParseEmotesInMessages = true;
 
         await _client.SimulateMessagesAsync(
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
         );
 
         Assert.That(flag.Wait(), Is.True, "Event was not raised!");
@@ -686,10 +689,10 @@ public class General : TestBase
         };
 
         await _client.SimulateMessagesAsync(
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
-            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={GUID};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:6-12;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello HeyGuys !",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emotes=30259:0-6;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys Hello!",
+            $"@badge-info=;badges=;client-nonce=00000000000000000000000000000000;color=;display-name={DUMMY_USERNAME};emote-only=1;emotes=30259:0-6;first-msg=0;flags=;id={NewGuid};mod=0;returning-chatter=0;room-id=00000000;subscriber=0;tmi-sent-ts=1666969696969;turbo=0;user-id={DUMMY_USER_ID};user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :HeyGuys"
         );
 
         Assert.That(flag.Wait(), Is.True, "Event was not raised!");
@@ -750,12 +753,67 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             $"@badge-info=;badges=bits-leader/1;bits={cheer};color=#121212;" +
-            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={GUID};mod=0;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=0;" +
             $"room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
             $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Cheer{cheer} Hello World!"
         );
 
         Assert.That(flag.Wait(), Is.True, "All event was not raised!");
+    }
+
+
+    [Test]
+    public async Task OnChatMessage_Reply()
+    {
+        var flag = new Flag();
+
+        var msgID = NewGuid;
+        const string msgBody = "Hello!";
+        var replyID = NewGuid;
+        var threadID = NewGuid;
+
+        _client.OnChatMessage += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.Message, Is.EqualTo($"@{DUMMY_USERNAME}_1 Reply"), "Message");
+
+                Assert.That(e.IsVip, Is.False, "IsVip");
+                Assert.That(e.IsSubscriber, Is.True, "IsSubscriber");
+                Assert.That(e.IsFounder, Is.False, "IsFounder");
+                Assert.That(e.IsModerator, Is.False, "IsModerator");
+                Assert.That(e.IsBroadcaster, Is.True, "IsBroadcaster");
+                Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
+                Assert.That(e.IsMe, Is.False, "IsMe");
+
+                Assert.That(e.ReplyThread, Is.Not.Null, "ReplyThread");
+                Assert.That(e.ReplyThread.ReplyID, Is.EqualTo(replyID), "ReplyThread.ReplyID");
+                Assert.That(e.ReplyThread.ReplyUsername, Is.EqualTo($"{DUMMY_USERNAME}_2"), "ReplyThread.ReplyUsername");
+                Assert.That(e.ReplyThread.ReplyUserID, Is.EqualTo($"{DUMMY_USER_ID}_2"), "ReplyThread.ReplyUserID");
+                Assert.That(e.ReplyThread.ReplyBody, Is.EqualTo(msgBody), "ReplyThread.ReplyBody");
+
+                Assert.That(e.ReplyThread.ThreadID, Is.EqualTo(threadID), "ReplyThread.ThreadID");
+                Assert.That(e.ReplyThread.ThreadUsername, Is.EqualTo($"{DUMMY_USERNAME}_1"), "ReplyThread.ThreadUsername");
+                Assert.That(e.ReplyThread.ThreadUserID, Is.EqualTo($"{DUMMY_USER_ID}_1"), "ReplyThread.ThreadUserID");
+            });
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(
+            "@badge-info=subscriber/40;badges=broadcaster/1,subscriber/3012,twitchconEU2022/1;client-nonce=00000000000000000000000000000000;" +
+            $"color=#00FF7F;display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={msgID};mod=0;" +
+            $"reply-parent-display-name={DUMMY_USERNAME}_2;reply-parent-msg-body={msgBody};reply-parent-msg-id={replyID};" +
+            $"reply-parent-user-id={DUMMY_USER_ID}_2;reply-parent-user-login={DUMMY_USERNAME}_2;reply-thread-parent-display-name={DUMMY_USERNAME}_1;" +
+            $"reply-thread-parent-msg-id={threadID};reply-thread-parent-user-id={DUMMY_USER_ID}_1;reply-thread-parent-user-login={DUMMY_USERNAME}_1;" +
+            $"returning-chatter=0;room-id=00000000;subscriber=1;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
+            $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :@{DUMMY_USERNAME}_1 Reply"
+        );
+
+        Assert.That(flag.Wait(), Is.True, "Event was not raised!");
     }
 
     [Test]
@@ -788,6 +846,7 @@ public class General : TestBase
     public async Task OnRaided()
     {
         var flag = new Flag();
+        const int viewers = 10;
 
         _client.OnRaided += (s, e) =>
         {
@@ -796,7 +855,7 @@ public class General : TestBase
                 Assert.That(e.Raider, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.RaiderID, Is.EqualTo(DUMMY_USER_ID), "RaiderID");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
-                Assert.That(e.Viewers, Is.EqualTo(10), "Viewers");
+                Assert.That(e.Viewers, Is.EqualTo(viewers), "Viewers");
             });
 
             flag.Set();
@@ -804,9 +863,9 @@ public class General : TestBase
 
         await _client.SimulateMessagesAsync(
             $"@badge-info=;badges=;color=#121212;display-name={DUMMY_USERNAME};emotes=;flags=;" +
-            $"id={GUID};login={DUMMY_USERNAME};mod=0;msg-id=raid;msg-param-displayName={DUMMY_USERNAME};" +
-            $"msg-param-login={DUMMY_USERNAME};msg-param-profileImageURL=https://static-cdn.jtvnw.net/jtv_user_pictures/{GUID}-profile_image-70x70.png;" +
-            @$"msg-param-viewerCount=10;room-id=00000000;subscriber=0;system-msg=10\sraiders\sfrom\s{DUMMY_USERNAME}\shave\sjoined!;" +
+            $"id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=raid;msg-param-displayName={DUMMY_USERNAME};" +
+            $"msg-param-login={DUMMY_USERNAME};msg-param-profileImageURL=https://static-cdn.jtvnw.net/jtv_user_pictures/{NewGuid}-profile_image-70x70.png;" +
+            @$"msg-param-viewerCount={viewers};room-id=00000000;subscriber=0;system-msg=10\sraiders\sfrom\s{DUMMY_USERNAME}\shave\sjoined!;" +
             $"tmi-sent-ts=1656969696969;user-id={DUMMY_USER_ID};user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
         );
 
@@ -820,15 +879,20 @@ public class General : TestBase
 
         _client.OnRaidCancelled += (s, e) =>
         {
-            Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "RaiderID");
+            });
 
             flag.Set();
         };
 
         await _client.SimulateMessagesAsync(
             $"@badge-info=subscriber/1;badges=subscriber/1;color=#121212;display-name={DUMMY_USERNAME};" +
-            $"emotes=;flags=;id={GUID};login={DUMMY_USERNAME};mod=0;msg-id=unraid;room-id=00000000;subscriber=1;" +
-            @"system-msg=The\sraid\shas\sbeen\scanceled.;tmi-sent-ts=1660407082773;user-id=00000006;" +
+            $"emotes=;flags=;id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=unraid;room-id=00000000;subscriber=1;" +
+            $@"system-msg=The\sraid\shas\sbeen\scanceled.;tmi-sent-ts=1660407082773;user-id={DUMMY_USER_ID};" +
             $"user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
         );
 
@@ -905,6 +969,8 @@ public class General : TestBase
     {
         var flag = new Flag();
 
+        const int bits = 50000;
+
         _client.OnBitsBadge += (s, e) =>
         {
             Assert.Multiple(() =>
@@ -912,15 +978,16 @@ public class General : TestBase
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
-                Assert.That(e.AutoSystemMessage, Is.EqualTo($"{DUMMY_USERNAME} just unlocked the 50000 badge!"), "AutoSystemMessage");
+                Assert.That(e.BitsBadge, Is.EqualTo(bits), "BitsBadge");
+                Assert.That(e.AutoSystemMessage, Is.EqualTo($"{DUMMY_USERNAME} just unlocked the {50000} badge!"), "AutoSystemMessage");
             });
 
             flag.Set();
         };
 
         await _client.SimulateMessagesAsync(
-            $"@badge-info=subscriber/1;badges=subscriber/1,bits/50000;color=#121212;display-name={DUMMY_USERNAME};emotes=;flags=;" +
-            $"id={GUID};login={DUMMY_USERNAME};mod=0;msg-id=bitsbadgetier;msg-param-threshold=50000;room-id=00000000;subscriber=1;" +
+            $"@badge-info=subscriber/1;badges=subscriber/1,bits/{bits};color=#121212;display-name={DUMMY_USERNAME};emotes=;flags=;" +
+            $"id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=bitsbadgetier;msg-param-threshold={bits};room-id=00000000;subscriber=1;" +
             $@"system-msg=bits\sbadge\stier\snotification;tmi-sent-ts=1656969696969;user-id={DUMMY_USER_ID};" +
             $"user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
         );
@@ -1135,6 +1202,6 @@ public class General : TestBase
             $"@subs-only=1;room-id=00000000 :tmi.twitch.tv {KnownCommands.ROOMSTATE} #{DUMMY_CHANNEL}"
         );
 
-        Assert.That(flag.Wait(), Is.True, "All event was not raised!");
+        Assert.That(flag.Wait(), Is.True, "All events was not raised!");
     }
 }

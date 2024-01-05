@@ -15,14 +15,14 @@ public class ChatMessageDeletedEventArgs : BaseEventArgs
     public string Username { get; }
 
     /// <summary>
-    /// UserID of the message that got deleted
-    /// </summary>
-    public string UserID { get; }
-
-    /// <summary>
     /// The deleted message
     /// </summary>
     public string DeletedMessage { get; }
+
+    /// <summary>
+    /// MessageID of the message that got deleted
+    /// </summary>
+    public string DeletedMessageID { get; }
 
 
     public ChatMessageDeletedEventArgs(
@@ -30,8 +30,8 @@ public class ChatMessageDeletedEventArgs : BaseEventArgs
         DateTime timestamp,
         string channel,
         string username,
-        string userId,
-        string deletedMessage
+        string deletedMessage,
+        string deletedMessageId
     ) : base(
         parsedIrcMessage,
         timestamp
@@ -39,7 +39,7 @@ public class ChatMessageDeletedEventArgs : BaseEventArgs
     {
         Channel = channel;
         Username = username;
-        UserID = userId;
         DeletedMessage = deletedMessage;
+        DeletedMessageID = deletedMessageId;
     }
 }

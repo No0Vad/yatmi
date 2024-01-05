@@ -7,7 +7,10 @@ public class TestBase
     protected const string DUMMY_USERNAME = "Best_User";
     protected const string DUMMY_USER_ID = "00001337";
 
-    protected static string GUID => Guid.NewGuid().ToString();
+    /// <summary>
+    /// On call, returns a new GUID
+    /// </summary>
+    protected static string NewGuid => Guid.NewGuid().ToString();
 
     [SetUp]
     public virtual void Setup()

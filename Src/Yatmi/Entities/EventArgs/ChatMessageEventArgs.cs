@@ -95,6 +95,11 @@ public class ChatMessageEventArgs : BaseEventArgs
     /// </summary>
     public PinnedChatPaidEntity PaidChat { get; }
 
+    /// <summary>
+    /// Contains information if the message is a reply to a message and its thread information, is null if it's a normal message
+    /// </summary>
+    public ReplyThreadEntity ReplyThread { get; }
+
 
     public ChatMessageEventArgs(
         ParsedIrcMessage parsedIrcMessage,
@@ -112,7 +117,8 @@ public class ChatMessageEventArgs : BaseEventArgs
         bool isMe,
         bool isFirstMessage,
         bool isReturningChatter,
-        PinnedChatPaidEntity paidChat
+        PinnedChatPaidEntity paidChat,
+        ReplyThreadEntity replyThread
     ) : base(
         parsedIrcMessage,
         timestamp
@@ -156,5 +162,6 @@ public class ChatMessageEventArgs : BaseEventArgs
         IsFirstMessage = isFirstMessage;
         IsReturningChatter = isReturningChatter;
         PaidChat = paidChat;
+        ReplyThread = replyThread;
     }
 }
