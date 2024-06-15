@@ -99,20 +99,30 @@ internal static class Program
 
     internal static void Client_OnRawIrcMessage(object sender, RawIrcMessageEventArgs e)
     {
-        // Save raw IRC message for analyze 
-        if (
-            e.RawIrcMessage.Contains(" PRIVMSG ")
-            || e.RawIrcMessage.Contains(" PART ")
-            || e.RawIrcMessage.Contains(" JOIN ")
-            || e.RawIrcMessage.StartsWith("PING ")
-        )
-        {
-            //return;
-        }
-
         if (!Env.DataFolder.Exists || !Directory.Exists(Env.DataFolder.Value))
         {
             ColorWriteLine($"[OnRawIrcMessage] Make sure the environment variable {Env.DataFolder.Name} exists with a valid path!", ConsoleColor.Yellow);
+            return;
+        }
+
+        // Log special power ups
+        if (
+            e.RawIrcMessage.Contains(" PRIVMSG ")
+            && e.RawIrcMessage.Contains(";msg-id=")
+        )
+        {
+            File.AppendAllText(Path.Combine(Env.DataFolder.Value, "RawDump_Powerups.txt"), e.RawIrcMessage + Environment.NewLine);
+            return;
+        }
+
+        // Ignore these types for now
+        if (
+            e.RawIrcMessage.StartsWith("PING ")
+            || e.RawIrcMessage.Contains(" PRIVMSG ")
+            || e.RawIrcMessage.Contains(" PART ")
+            || e.RawIrcMessage.Contains(" JOIN ")
+        )
+        {
             return;
         }
 
