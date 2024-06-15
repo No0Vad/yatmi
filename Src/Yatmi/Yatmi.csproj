@@ -6,7 +6,7 @@
         <Title>Yatmi</Title>
         <Description>Yet Another Twitch Messaging Interface</Description>
         <Copyright>2022 - No0Vad - MIT License</Copyright>
-        <Version>1.3.1</Version>
+        <Version>1.3.2</Version>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>Twitch;Chat bot;Yatmi</PackageTags>

@@ -6,5 +6,7 @@ public enum MessageTypes
     Announcement,
     Highlight,
     UserIntroduction,
-    CustomReward
+    CustomReward,
+    GigantifiedEmote,
+    Animated,
 }

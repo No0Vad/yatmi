@@ -81,6 +81,11 @@ public class ChatMessageEventArgs : BaseEventArgs
     public bool IsMe { get; }
 
     /// <summary>
+    /// If the message has a unknown 'msg-id' value, it is stored here, else null
+    /// </summary>
+    public string UnknownMsgId { get; }
+
+    /// <summary>
     /// Indicates if this was the senders first message in this channel
     /// </summary>
     public bool IsFirstMessage { get; }
@@ -143,25 +148,33 @@ public class ChatMessageEventArgs : BaseEventArgs
                 KnownMessageIds.ANNOUNCEMENT => MessageTypes.Announcement,
                 KnownMessageIds.HIGHLIGHTED_MESSAGE => MessageTypes.Highlight,
                 KnownMessageIds.USER_INTRO => MessageTypes.UserIntroduction,
+                KnownMessageIds.GIGANTIFIED_EMOTE_MESSAGE => MessageTypes.GigantifiedEmote,
+                KnownMessageIds.ANIMATED_MESSAGE => MessageTypes.Animated,
                 _ => MessageTypes.Normal
             };
-        }
 
-        if (badges != null)
-        {
-            var badgeSpan = badges.AsSpan();
-            IsBroadcaster = badgeSpan.IndexOf(KnownBadges.BROADCASTER.AsSpan()) != -1;
-            IsModerator = badgeSpan.IndexOf(KnownBadges.MODERATOR.AsSpan()) != -1;
-            IsFounder = badgeSpan.IndexOf(KnownBadges.FOUNDER.AsSpan()) != -1;
-            IsSubscriber = badgeSpan.IndexOf(KnownBadges.SUBSCRIBER.AsSpan()) != -1;
-            IsVip = badgeSpan.IndexOf(KnownBadges.VIP.AsSpan()) != -1;
-            IsStaff = badgeSpan.IndexOf(KnownBadges.STAFF.AsSpan()) != -1;
-        }
+            if (MessageType == MessageTypes.Normal && !string.IsNullOrEmpty(msgId))
+            {
+                // Something else, we don't know what yet.
+                UnknownMsgId = msgId;
+            }
 
-        IsMe = isMe;
-        IsFirstMessage = isFirstMessage;
-        IsReturningChatter = isReturningChatter;
-        PaidChat = paidChat;
-        ReplyThread = replyThread;
+            if (badges != null)
+            {
+                var badgeSpan = badges.AsSpan();
+                IsBroadcaster = badgeSpan.IndexOf(KnownBadges.BROADCASTER.AsSpan()) != -1;
+                IsModerator = badgeSpan.IndexOf(KnownBadges.MODERATOR.AsSpan()) != -1;
+                IsFounder = badgeSpan.IndexOf(KnownBadges.FOUNDER.AsSpan()) != -1;
+                IsSubscriber = badgeSpan.IndexOf(KnownBadges.SUBSCRIBER.AsSpan()) != -1;
+                IsVip = badgeSpan.IndexOf(KnownBadges.VIP.AsSpan()) != -1;
+                IsStaff = badgeSpan.IndexOf(KnownBadges.STAFF.AsSpan()) != -1;
+            }
+
+            IsMe = isMe;
+            IsFirstMessage = isFirstMessage;
+            IsReturningChatter = isReturningChatter;
+            PaidChat = paidChat;
+            ReplyThread = replyThread;
+        }
     }
 }

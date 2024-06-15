@@ -302,6 +302,7 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.True, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.True, "IsMe");
+                Assert.That(e.MessageType, Is.EqualTo(MessageTypes.Normal), "MessageType");
 
                 Assert.That(e.PaidChat, Is.Null, "PaidChat");
                 Assert.That(e.ReplyThread, Is.Null, "ReplyThread");
@@ -324,6 +325,8 @@ public class General : TestBase
     [TestCase(KnownMessageIds.HIGHLIGHTED_MESSAGE, MessageTypes.Highlight)]
     [TestCase(KnownMessageIds.ANNOUNCEMENT, MessageTypes.Announcement)]
     [TestCase(KnownMessageIds.USER_INTRO, MessageTypes.UserIntroduction)]
+    [TestCase(KnownMessageIds.GIGANTIFIED_EMOTE_MESSAGE, MessageTypes.GigantifiedEmote)]
+    [TestCase(KnownMessageIds.ANIMATED_MESSAGE, MessageTypes.Animated)]
     [TestCase("", MessageTypes.CustomReward)]
     public async Task OnChatMessage_MessageTypes(string messageID, MessageTypes expectedType)
     {
