@@ -13,6 +13,8 @@
         public const string FIRST_MSG = "first-msg";
         public const string BITS = "bits";
         public const string EMOTES = "emotes";
+        public const string ROOM_ID = "room-id";
+        public const string SOURCE_ROOM_ID = "source-room-id";
 
         public const string MSG_PARAM_VIEWER_COUNT = "msg-param-viewerCount";
         public const string MSG_PARAM_CUMULATIVE_MONTHS = "msg-param-cumulative-months";

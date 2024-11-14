@@ -96,6 +96,20 @@ public class ChatMessageEventArgs : BaseEventArgs
     public bool IsReturningChatter { get; }
 
     /// <summary>
+    /// If true, it means the message was sent in the channel the bot is joined to.
+    /// </summary>
+    /// <remarks>
+    /// When chats are shared, messages sent elsewhere will also be shown in the channel the bot has joined.
+    /// That message will have <see cref="IsFromChannel"/> being false, since it was sent from another channel.
+    /// </remarks>
+    public bool IsFromChannel { get; }
+
+    /// <summary>
+    /// The room ID this message was sent from, it was not the room the bot is joined to.
+    /// </summary>
+    public string SourceRoomId { get; }
+
+    /// <summary>
     /// Contains information about the paid message, is null if it's a normal message
     /// </summary>
     public PinnedChatPaidEntity PaidChat { get; }
@@ -122,6 +136,8 @@ public class ChatMessageEventArgs : BaseEventArgs
         bool isMe,
         bool isFirstMessage,
         bool isReturningChatter,
+        string roomId,
+        string sourceRoomId,
         PinnedChatPaidEntity paidChat,
         ReplyThreadEntity replyThread
     ) : base(
@@ -173,6 +189,8 @@ public class ChatMessageEventArgs : BaseEventArgs
             IsMe = isMe;
             IsFirstMessage = isFirstMessage;
             IsReturningChatter = isReturningChatter;
+            IsFromChannel = roomId == sourceRoomId || sourceRoomId == null;
+            SourceRoomId = sourceRoomId;
             PaidChat = paidChat;
             ReplyThread = replyThread;
         }

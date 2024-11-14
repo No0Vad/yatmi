@@ -30,6 +30,7 @@ public static class KnownMessageIds
     public const string MSG_CHANNEL_SUSPENDED = "msg_channel_suspended";
     public const string GIGANTIFIED_EMOTE_MESSAGE = "gigantified-emote-message";
     public const string ANIMATED_MESSAGE = "animated-message";
+    public const string SHARED_CHAT_NOTICE = "sharedchatnotice";
 
     /// <summary>
     /// Elevated message, paid to be shown longer

@@ -203,6 +203,11 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
     public event EventHandler<ViewerMilestoneMessageEventArgs> OnViewerMilestoneMessage;
 
     /// <summary>
+    /// Fired when a message is shared to a joined channel the bot is in
+    /// </summary>
+    public event EventHandler<SharedChatNoticeEventArgs> OnSharedChatNotice;
+
+    /// <summary>
     /// Fired when someone is raiding the channel
     /// </summary>
     public event EventHandler<RaidEventArgs> OnRaided;
@@ -277,7 +282,6 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
     /// Fired when a subscription is made. Helpful for when counting or doing something with subscriptions
     /// </summary>
     public event EventHandler<SubscriptionCounterEventArgs> OnSubscriptionCounter;
-
 
     /// <summary>
     /// Fired when someone is timed out
@@ -1089,6 +1093,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                     ircEntity.Tags.ContainsKey(KnownTags.YATMI_IS_ME),
                     ircEntity.Tags.GetStringValue(KnownTags.FIRST_MSG) == "1",
                     ircEntity.Tags.GetStringValue(KnownTags.RETURNING_CHATTER) == "1",
+                    ircEntity.Tags.GetStringValue(KnownTags.ROOM_ID),
+                    ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
                     PinnedChatPaidEntity.TryCreate(ircEntity.Tags),
                     ReplyThreadEntity.TryCreate(ircEntity.Tags)
                 );
@@ -1238,6 +1244,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Tags.ContainsKey(KnownTags.YATMI_IS_ME),
                 ircEntity.Tags.GetStringValue(KnownTags.FIRST_MSG) == "1",
                 ircEntity.Tags.GetStringValue(KnownTags.RETURNING_CHATTER) == "1",
+                ircEntity.Tags.GetStringValue(KnownTags.ROOM_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
                 PinnedChatPaidEntity.TryCreate(ircEntity.Tags), // Can't be both announcement AND paid to my knowledge, but just in case.
                 ReplyThreadEntity.TryCreate(ircEntity.Tags) // Can't be both announcement AND reply to my knowledge, but just in case.
             ));
@@ -1479,6 +1487,18 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CATEGORY),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_VALUE)
+            ));
+        }
+        else if (msgId == KnownMessageIds.SHARED_CHAT_NOTICE)
+        {
+            OnSharedChatNotice?.Invoke(this, new SharedChatNoticeEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID)
             ));
         }
         else

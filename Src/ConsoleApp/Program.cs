@@ -24,6 +24,7 @@ internal static class Program
         client.OnParsedIrcMessage += Client_OnParsedIrcMessage;
         client.OnAuthFailed += Client_OnAuthFailed;
         client.OnNotice += Client_OnNotice;
+        client.OnSharedChatNotice += Client_OnSharedChatNotice;
 
         client.OnConnected += Client_OnConnected;
         client.OnDisconnected += Client_OnDisconnected;
@@ -32,7 +33,7 @@ internal static class Program
         //client.OnChannelParted += Client_OnChannelParted;
         //client.OnUserJoinedChannel += Client_OnUserJoinedChannel;
         //client.OnUserPartedChannel += Client_OnUserPartedChannel;
-        //client.OnChatMessage += Client_OnChatMessage;
+        client.OnChatMessage += Client_OnChatMessage;
         client.OnWhisperMessage += Client_OnWhisperMessage;
         client.OnBitsChatMessage += Client_OnBitsChatMessage;
         client.OnRaided += Client_OnRaided;
@@ -149,6 +150,11 @@ internal static class Program
         ColorWriteLine($"[{e.Timestamp}] NOTICE: {e.Message} -- ({e.NoticeType})", ConsoleColor.Yellow);
     }
 
+    internal static void Client_OnSharedChatNotice(object sender, SharedChatNoticeEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] SHARED NOTICE: From '{e.SourceRoomId}' with message -> {e.SystemMessage}", ConsoleColor.Yellow);
+    }
+
     internal static void Client_OnConnected(object sender, TimestampEventArgs e)
     {
         ColorWriteLine($"[{e.Timestamp}] Connected to Twitch IRC!", ConsoleColor.Green);
@@ -184,7 +190,7 @@ internal static class Program
     {
         ColorWriteLine(string.Join(" ", new[]
         {
-            $"[{e.Timestamp}][{e.Channel}]",
+            $"{(!e.IsFromChannel ? "<Shared> " : "")}[{e.Timestamp}][{e.Channel}]",
             e.IsStaff ? "[Staff]" : "",
             e.IsBroadcaster ? "[Stream]" : "",
             e.IsFounder ? "[Founder]" : e.IsSubscriber ? "[Sub]" : "",
@@ -226,7 +232,7 @@ internal static class Program
 
     internal static void Client_OnBitsChatMessage(object sender, ChatMessageEventArgs e)
     {
-        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] '{e.Bits}' from {e.Username}!", ConsoleColor.Magenta);
+        ColorWriteLine($"{(!e.IsFromChannel ? "<Shared> " : "")}[{e.Timestamp}][{e.Channel}] '{e.Bits}' from {e.Username}!", ConsoleColor.Magenta);
     }
 
     internal static void Client_OnRaided(object sender, RaidEventArgs e)
@@ -251,7 +257,7 @@ internal static class Program
 
     internal static void Client_OnResubscribe(object sender, ResubscribeEventArgs e)
     {
-        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] {e.SystemMessage} | {e.Username} (ID:{e.UserID}) | {e.Months} | {e.SubPlanType}", ConsoleColor.Magenta);
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] {e.SystemMessage} | {e.Username} (ID:{e.UserID}) | {e.Months} | {e.SubPlanType} -> {e.Message}", ConsoleColor.Magenta);
     }
 
     internal static void Client_OnGiftSubscribe(object sender, GiftSubscriptionEventArgs e)
