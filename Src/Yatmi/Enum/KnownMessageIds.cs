@@ -1,4 +1,4 @@
-﻿namespace Yatmi.Enum;
+namespace Yatmi.Enum;
 
 /// <summary>
 /// More details here https://dev.twitch.tv/docs/irc/msg-id
@@ -54,4 +54,9 @@ public static class KnownMessageIds
     public const string HOST_ON = "host_on";
     public const string HOST_OFF = "host_off";
     public const string HOST_TARGET_WENT_OFFLINE = "host_target_went_offline";
+
+    public const string ONE_TAP_STREAK_STARTED = "onetapstreakstarted";
+    public const string ONE_TAP_BREAKPOINT_ACHIEVED = "onetapbreakpointachieved";
+    public const string ONE_TAP_STREAK_EXPIRED = "onetapstreakexpired";
+
 }

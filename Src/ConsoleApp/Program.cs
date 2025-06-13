@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,6 +66,10 @@ internal static class Program
         client.OnSlowModeState += Client_OnSlowModeState;
         client.OnSubscribersOnlyState += Client_OnSubsOnlyState;
 
+        client.OnOneTapStreakStartedNotice += Client_OnOneTapStreakStartedNotice;
+        client.OnOneTapBreakpointAchievedNotice += Client_OnOneTapBreakpointAchievedNotice;
+        client.OnOneTapStreakExpiredNotice += Client_OnOneTapStreakExpiredNotice;
+
         if (true)
         {
             UseSimulatedMessages();
@@ -85,6 +89,7 @@ internal static class Program
 
         ColorWriteLine("Shutdown!", ConsoleColor.Yellow);
     }
+
 
     internal static void Client_OnPing(object sender, TimestampEventArgs e)
     {
@@ -371,6 +376,22 @@ internal static class Program
     internal static void Client_OnSubsOnlyState(object sender, SubscribersOnlyStateEventArgs e)
     {
         ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [SubsOnly] SubsOnly = {e.IsActive}", ConsoleColor.Cyan);
+    }
+
+
+    internal static void Client_OnOneTapStreakStartedNotice(object sender, OneTapStreakStartedNoticeEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [OneTap Started] {e.SystemMessage}", ConsoleColor.Magenta);
+    }
+
+    internal static void Client_OnOneTapBreakpointAchievedNotice(object sender, OneTapBreakpointAchievedNoticeEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [OneTap Breakpoint Achieved] {e.SystemMessage}", ConsoleColor.Magenta);
+    }
+
+    internal static void Client_OnOneTapStreakExpiredNotice(object sender, OneTapStreakExpiredNoticeEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [OneTap Expired] {e.SystemMessage}", ConsoleColor.Magenta);
     }
 
 

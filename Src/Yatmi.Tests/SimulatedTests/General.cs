@@ -764,6 +764,33 @@ public class General : TestBase
         Assert.That(flag.Wait(), Is.True, "All event was not raised!");
     }
 
+    [Test]
+    public async Task OnElevatedMessage()
+    {
+        var flag = new Flag();
+
+        _client.OnElevatedMessage += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.Amount, Is.EqualTo(123.45), "Amount");
+                Assert.That(e.Currency, Is.EqualTo("EUR"), "Currency");
+            });
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(
+            $"@badge-info=;badges=;color=#121212;display-name={DUMMY_USERNAME};emotes=;flags=;" +
+            $"id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=midnightsquid;msg-param-displayName={DUMMY_USERNAME};" +
+            "msg-param-amount=12345;msg-param-currency=EUR;" +
+            $"tmi-sent-ts=1656969696969;user-id={DUMMY_USER_ID};user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
+        );
+
+        Assert.That(flag.Wait(), Is.True, "Event was not raised!");
+    }
 
     [Test]
     public async Task OnChatMessage_Reply()
@@ -1206,5 +1233,93 @@ public class General : TestBase
         );
 
         Assert.That(flag.Wait(), Is.True, "All events was not raised!");
+    }
+
+    [Test]
+    public async Task OnOneTap()
+    {
+        var flag = new Flag(3);
+
+        _client.OnOneTapStreakStartedNotice += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.GiftId, Is.EqualTo("heart"), "GiftId");
+                Assert.That(e.MsRemaining, Is.EqualTo(10000), "MsRemaining");
+            });
+
+            flag.Set();
+        };
+
+        _client.OnOneTapBreakpointAchievedNotice += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.GiftId, Is.EqualTo("heart"), "GiftId");
+                Assert.That(e.BreakpointNumber, Is.EqualTo(1000), "BreakpointNumber");
+                Assert.That(e.BreakpointThresholdBits, Is.EqualTo(2000), "BreakpointThresholdBits");
+            });
+
+            flag.Set();
+        };
+
+        _client.OnOneTapStreakExpiredNotice += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.GiftId, Is.EqualTo("heart"), "GiftId");
+                Assert.That(e.Contributor1, Is.EqualTo(DUMMY_USERNAME + 1), "Contributor1");
+                Assert.That(e.Contributor1Taps, Is.EqualTo(123), "Contributor1Taps");
+                Assert.That(e.Contributor2, Is.EqualTo(DUMMY_USERNAME + 2), "Contributor2");
+                Assert.That(e.Contributor2Taps, Is.EqualTo(456), "Contributor2Taps");
+                Assert.That(e.LargestContributorCount, Is.EqualTo(6001), "LargestContributorCount");
+                Assert.That(e.StreakSizeBits, Is.EqualTo(1000), "StreakSizeBits");
+                Assert.That(e.StreakSizeTaps, Is.EqualTo(2000), "StreakSizeTaps");
+            });
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(Fabricate(
+            KnownCommands.USERNOTICE,
+            KnownMessageIds.ONE_TAP_STREAK_STARTED,
+            new() {
+                { KnownTags.MSG_PARAM_GIFT_ID, "heart" },
+                { KnownTags.MSG_PARAM_MS_REMAINING, 10000 },
+            }
+        ));
+
+        await _client.SimulateMessagesAsync(Fabricate(
+            KnownCommands.USERNOTICE,
+            KnownMessageIds.ONE_TAP_BREAKPOINT_ACHIEVED,
+            new() {
+                { KnownTags.MSG_PARAM_GIFT_ID, "heart" },
+                { KnownTags.MSG_PARAM_BREAKPOINT_NUMBER, 1000 },
+                { KnownTags.MSG_PARAM_BREAKPOINT_THRESHOLD_BITS, 2000 },
+            }
+        ));
+
+        await _client.SimulateMessagesAsync(Fabricate(
+            KnownCommands.USERNOTICE,
+            KnownMessageIds.ONE_TAP_STREAK_EXPIRED,
+            new() {
+                { KnownTags.MSG_PARAM_GIFT_ID, "heart" },
+                { KnownTags.MSG_PARAM_CONTRIBUTOR_1, DUMMY_USERNAME + 1 },
+                { KnownTags.MSG_PARAM_CONTRIBUTOR_1_TAPS, 123 },
+                { KnownTags.MSG_PARAM_CONTRIBUTOR_2, DUMMY_USERNAME + 2 },
+                { KnownTags.MSG_PARAM_CONTRIBUTOR_2_TAPS, 456 },
+                { KnownTags.MSG_PARAM_LARGEST_CONTRIBUTOR_COUNT, 6001 },
+                { KnownTags.MSG_PARAM_STREAK_SIZE_BITS, 1000 },
+                { KnownTags.MSG_PARAM_STREAK_SIZE_TAPS, 2000 },
+            }
+        ));
+
+        Assert.That(flag.Wait(), Is.True, "Events was not raised!");
     }
 }

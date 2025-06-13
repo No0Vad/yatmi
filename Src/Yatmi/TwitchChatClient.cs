@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
@@ -206,6 +206,21 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
     /// Fired when a message is shared to a joined channel the bot is in
     /// </summary>
     public event EventHandler<SharedChatNoticeEventArgs> OnSharedChatNotice;
+
+    /// <summary>
+    /// Fired when a OneTap streak is started in channel the bot is in
+    /// </summary>
+    public event EventHandler<OneTapStreakStartedNoticeEventArgs> OnOneTapStreakStartedNotice;
+
+    /// <summary>
+    /// Fired when a OneTap breakpoint is achived in channel the bot is in
+    /// </summary>
+    public event EventHandler<OneTapBreakpointAchievedNoticeEventArgs> OnOneTapBreakpointAchievedNotice;
+
+    /// <summary>
+    /// Fired when a OneTap expires in channel the bot is in
+    /// </summary>
+    public event EventHandler<OneTapStreakExpiredNoticeEventArgs> OnOneTapStreakExpiredNotice;
 
     /// <summary>
     /// Fired when someone is raiding the channel
@@ -1501,9 +1516,58 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID)
             ));
         }
+        else if (msgId == KnownMessageIds.ONE_TAP_STREAK_STARTED)
+        {
+            OnOneTapStreakStartedNotice?.Invoke(this, new OneTapStreakStartedNoticeEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFT_ID),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_MS_REMAINING)
+            ));
+        }
+        else if (msgId == KnownMessageIds.ONE_TAP_BREAKPOINT_ACHIEVED)
+        {
+            OnOneTapBreakpointAchievedNotice?.Invoke(this, new OneTapBreakpointAchievedNoticeEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFT_ID),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_BREAKPOINT_NUMBER),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_BREAKPOINT_THRESHOLD_BITS)
+            ));
+        }
+        else if (msgId == KnownMessageIds.ONE_TAP_STREAK_EXPIRED)
+        {
+            OnOneTapStreakExpiredNotice?.Invoke(this, new OneTapStreakExpiredNoticeEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFT_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CONTRIBUTOR_1),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_CONTRIBUTOR_1_TAPS),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_CONTRIBUTOR_2),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_CONTRIBUTOR_2_TAPS),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_LARGEST_CONTRIBUTOR_COUNT),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_STREAK_SIZE_BITS),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_STREAK_SIZE_TAPS)
+            ));
+        }
         else
         {
-            OnUnknownMessage?.Invoke(this, new RawIrcMessageEventArgs(rawIrcMessage, KnownCommands.USERNOTICE, "MsgID was unknown or missing"));
+            OnUnknownMessage?.Invoke(this, new RawIrcMessageEventArgs(rawIrcMessage, KnownCommands.USERNOTICE, $"MsgID '{msgId}' was unknown or missing"));
         }
     }
 

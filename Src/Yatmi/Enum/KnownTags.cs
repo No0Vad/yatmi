@@ -1,20 +1,25 @@
-﻿namespace Yatmi.Enum
+namespace Yatmi.Enum
 {
     public static class KnownTags
     {
         public const string ID = "id";
         public const string USER_ID = "user-id";
+        public const string USER_TYPE = "user-type";
         public const string BADGES = "badges";
         public const string COLOR = "color";
         public const string SENT_TIMESTAMP = "tmi-sent-ts";
         public const string MSG_ID = "msg-id";
         public const string LOGIN = "login";
+        public const string MOD = "mod";
         public const string DISPLAY_NAME = "display-name";
         public const string FIRST_MSG = "first-msg";
         public const string BITS = "bits";
         public const string EMOTES = "emotes";
+        public const string FLAGS = "flags";
+        public const string TURBO = "turbo";
         public const string ROOM_ID = "room-id";
         public const string SOURCE_ROOM_ID = "source-room-id";
+        public const string TMI_SENT_TS = "tmi-sent-ts";
 
         public const string MSG_PARAM_VIEWER_COUNT = "msg-param-viewerCount";
         public const string MSG_PARAM_CUMULATIVE_MONTHS = "msg-param-cumulative-months";
@@ -32,6 +37,20 @@
         public const string MSG_PARAM_CURRENCY = "msg-param-currency";
         public const string MSG_PARAM_CATEGORY = "msg-param-category";
         public const string MSG_PARAM_VALUE = "msg-param-value";
+
+        // All related to OneTap
+        public const string MSG_PARAM_BREAKPOINT_NUMBER = "msg-param-breakpoint-number";
+        public const string MSG_PARAM_BREAKPOINT_THRESHOLD_BITS = "msg-param-breakpoint-threshold-bits";
+        public const string MSG_PARAM_GIFT_ID = "msg-param-gift-id";
+        public const string MSG_PARAM_CHANNEL_DISPLAY_NAME = "msg-param-channel-display-name";
+        public const string MSG_PARAM_CONTRIBUTOR_1 = "msg-param-contributor-1";
+        public const string MSG_PARAM_CONTRIBUTOR_1_TAPS = "msg-param-contributor-1-taps";
+        public const string MSG_PARAM_CONTRIBUTOR_2 = "msg-param-contributor-2";
+        public const string MSG_PARAM_CONTRIBUTOR_2_TAPS = "msg-param-contributor-2-taps";
+        public const string MSG_PARAM_LARGEST_CONTRIBUTOR_COUNT = "msg-param-largest-contributor-count";
+        public const string MSG_PARAM_STREAK_SIZE_BITS = "msg-param-streak-size-bits";
+        public const string MSG_PARAM_STREAK_SIZE_TAPS = "msg-param-streak-size-taps";
+        public const string MSG_PARAM_MS_REMAINING = "msg-param-ms-remaining";
 
         public const string REPLY_PARENT_MSG_ID = "reply-parent-msg-id";
         public const string REPLY_PARENT_MSG_USER_ID = "reply-parent-user-id";
@@ -61,6 +80,7 @@
         public const string PINNED_CHAT_PAID_EXPONENT = "pinned-chat-paid-exponent";
         public const string PINNED_CHAT_PAID_IS_SYSTEM_MESSAGE = "pinned-chat-paid-is-system-message";
         public const string PINNED_CHAT_PAID_LEVEL = "pinned-chat-paid-level";
+
 
         // Test are custom ones because use the tags for custom data
         public const string YATMI_IS_ME = "yatmi-is-me";
