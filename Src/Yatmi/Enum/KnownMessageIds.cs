@@ -58,5 +58,6 @@ public static class KnownMessageIds
     public const string ONE_TAP_STREAK_STARTED = "onetapstreakstarted";
     public const string ONE_TAP_BREAKPOINT_ACHIEVED = "onetapbreakpointachieved";
     public const string ONE_TAP_STREAK_EXPIRED = "onetapstreakexpired";
+    public const string ONE_TAP_GIFT_REDEEMED = "onetapgiftredeemed";
 
 }

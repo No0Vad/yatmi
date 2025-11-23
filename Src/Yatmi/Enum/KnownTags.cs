@@ -51,6 +51,8 @@ namespace Yatmi.Enum
         public const string MSG_PARAM_STREAK_SIZE_BITS = "msg-param-streak-size-bits";
         public const string MSG_PARAM_STREAK_SIZE_TAPS = "msg-param-streak-size-taps";
         public const string MSG_PARAM_MS_REMAINING = "msg-param-ms-remaining";
+        public const string MSG_PARAM_BITS_SPENT = "msg-param-bits-spent";
+        public const string MSG_PARAM_USER_DISPLAY_NAME = "msg-param-user-display-name";
 
         public const string REPLY_PARENT_MSG_ID = "reply-parent-msg-id";
         public const string REPLY_PARENT_MSG_USER_ID = "reply-parent-user-id";

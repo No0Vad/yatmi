@@ -223,6 +223,11 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
     public event EventHandler<OneTapStreakExpiredNoticeEventArgs> OnOneTapStreakExpiredNotice;
 
     /// <summary>
+    /// Fired when a OneTap is redeemed in channel the bot is in
+    /// </summary>
+    public event EventHandler<OneTapGiftRedeemedNoticeEventArgs> OnOneTapGiftRedeemedNotice;
+
+    /// <summary>
     /// Fired when someone is raiding the channel
     /// </summary>
     public event EventHandler<RaidEventArgs> OnRaided;
@@ -1563,6 +1568,21 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_LARGEST_CONTRIBUTOR_COUNT),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_STREAK_SIZE_BITS),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_STREAK_SIZE_TAPS)
+            ));
+        }
+        else if (msgId == KnownMessageIds.ONE_TAP_GIFT_REDEEMED)
+        {
+            OnOneTapGiftRedeemedNotice?.Invoke(this, new OneTapGiftRedeemedNoticeEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_BITS_SPENT),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFT_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_USER_DISPLAY_NAME)
             ));
         }
         else

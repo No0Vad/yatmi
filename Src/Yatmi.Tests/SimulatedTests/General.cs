@@ -1238,7 +1238,7 @@ public class General : TestBase
     [Test]
     public async Task OnOneTap()
     {
-        var flag = new Flag(3);
+        var flag = new Flag(4);
 
         _client.OnOneTapStreakStartedNotice += (s, e) =>
         {
@@ -1286,6 +1286,21 @@ public class General : TestBase
             flag.Set();
         };
 
+        _client.OnOneTapGiftRedeemedNotice += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.GiftId, Is.EqualTo("heart"), "GiftId");
+                Assert.That(e.BitsSpent, Is.EqualTo(123), "BitsSpent");
+                Assert.That(e.UserDisplayName, Is.EqualTo(DUMMY_USERNAME + 1), "UserDisplayName");
+            });
+
+            flag.Set();
+        };
+
+
         await _client.SimulateMessagesAsync(Fabricate(
             KnownCommands.USERNOTICE,
             KnownMessageIds.ONE_TAP_STREAK_STARTED,
@@ -1317,6 +1332,16 @@ public class General : TestBase
                 { KnownTags.MSG_PARAM_LARGEST_CONTRIBUTOR_COUNT, 6001 },
                 { KnownTags.MSG_PARAM_STREAK_SIZE_BITS, 1000 },
                 { KnownTags.MSG_PARAM_STREAK_SIZE_TAPS, 2000 },
+            }
+        ));
+
+        await _client.SimulateMessagesAsync(Fabricate(
+            KnownCommands.USERNOTICE,
+            KnownMessageIds.ONE_TAP_GIFT_REDEEMED,
+            new() {
+                { KnownTags.MSG_PARAM_GIFT_ID, "heart" },
+                { KnownTags.MSG_PARAM_BITS_SPENT, 123 },
+                { KnownTags.MSG_PARAM_USER_DISPLAY_NAME, DUMMY_USERNAME + 1 },
             }
         ));
 
