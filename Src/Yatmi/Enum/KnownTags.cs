@@ -37,6 +37,7 @@ namespace Yatmi.Enum
         public const string MSG_PARAM_CURRENCY = "msg-param-currency";
         public const string MSG_PARAM_CATEGORY = "msg-param-category";
         public const string MSG_PARAM_VALUE = "msg-param-value";
+        public const string MSG_PARAM_MONTH = "msg-param-months";
 
         // All related to OneTap
         public const string MSG_PARAM_BREAKPOINT_NUMBER = "msg-param-breakpoint-number";

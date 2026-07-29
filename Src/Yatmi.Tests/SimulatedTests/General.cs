@@ -1347,4 +1347,32 @@ public class General : TestBase
 
         Assert.That(flag.Wait(), Is.True, "Events was not raised!");
     }
+
+    [Test]
+    public async Task OnModiversary()
+    {
+        var flag = new Flag();
+
+        _client.OnModiversary += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.Months, Is.EqualTo(123), "Months");
+            });
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(
+            $"@badge-info=subscriber/1;badges=moderator/1,campaign-{NewGuid}-sub/1;color=#121212;" +
+            $"display-name={DUMMY_USERNAME};emotes=;flags=;id={NewGuid};login={DUMMY_USERNAME};mod=1;msg-id=modiversary;msg-param-months=123;room-id=00000000;subscriber=1;" +
+            $@"system-msg=has\sbeen\sa\smoderator\sfor\s123\smonths!;tmi-sent-ts=1656969696969;user-id={DUMMY_USER_ID};" +
+            $"user-type=mod;vip=0 :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL} :Beep boop!"
+        );
+
+        Assert.That(flag.Wait(), Is.True, "All event was not raised!");
+    }
 }

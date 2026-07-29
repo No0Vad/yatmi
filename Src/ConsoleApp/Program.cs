@@ -70,6 +70,7 @@ internal static class Program
         client.OnOneTapBreakpointAchievedNotice += Client_OnOneTapBreakpointAchievedNotice;
         client.OnOneTapStreakExpiredNotice += Client_OnOneTapStreakExpiredNotice;
         client.OnOneTapGiftRedeemedNotice += Client_OnOneTapGiftRedeemedNotice;
+        client.OnModiversary += Client_OnModiversary;
 
         if (true)
         {
@@ -397,6 +398,11 @@ internal static class Program
     internal static void Client_OnOneTapGiftRedeemedNotice(object sender, OneTapGiftRedeemedNoticeEventArgs e)
     {
         ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [OneTap Gift Redeemed] {e.SystemMessage}", ConsoleColor.Magenta);
+    }
+
+    private static void Client_OnModiversary(object sender, ModiversaryEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [Modiversary] {e.Username} {e.SystemMessage} -- {e.Message}", ConsoleColor.Green);
     }
 
 

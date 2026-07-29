@@ -1,4 +1,4 @@
-﻿namespace Yatmi.Enum;
+namespace Yatmi.Enum;
 
 public enum MessageTypes
 {
@@ -8,5 +8,5 @@ public enum MessageTypes
     UserIntroduction,
     CustomReward,
     GigantifiedEmote,
-    Animated,
+    Animated
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Yatmi.Enum;
 
 namespace Yatmi.Entities.EventArgs;

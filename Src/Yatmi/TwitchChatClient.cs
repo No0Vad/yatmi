@@ -228,6 +228,11 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
     public event EventHandler<OneTapGiftRedeemedNoticeEventArgs> OnOneTapGiftRedeemedNotice;
 
     /// <summary>
+    /// Fired when a moderator shares their modiversary
+    /// </summary>
+    public event EventHandler<ModiversaryEventArgs> OnModiversary;
+
+    /// <summary>
     /// Fired when someone is raiding the channel
     /// </summary>
     public event EventHandler<RaidEventArgs> OnRaided;
@@ -1583,6 +1588,19 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_BITS_SPENT),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_GIFT_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_USER_DISPLAY_NAME)
+            ));
+        }
+        else if (msgId == KnownMessageIds.MODIVERSARY)
+        {
+            OnModiversary?.Invoke(this, new ModiversaryEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Message,
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_MONTH)
             ));
         }
         else
