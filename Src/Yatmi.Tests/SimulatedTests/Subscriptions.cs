@@ -1,4 +1,4 @@
-﻿using Yatmi.Enum;
+using Yatmi.Enum;
 
 namespace Yatmi.Tests.SimulatedTests;
 
@@ -586,5 +586,106 @@ public class Subscriptions : TestBase
             Assert.That(counter, Is.EqualTo(16), "Counter");
             Assert.That(flag.Wait(), Is.True, "Event was not raised!");
         });
+    }
+
+
+
+
+    [Test]
+    public async Task OnGiftSubBaseMatch()
+    {
+        var flag = new Flag();
+
+        _client.OnGiftSubBaseMatch += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.Quantity, Is.EqualTo(DUMMY_NUMBER), "Quantity");
+                Assert.That(e.AdvertiserName, Is.EqualTo("Twitch Dual Format"), "AdvertiserName");
+                Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} got {DUMMY_NUMBER} bonus subs sponsored by Twitch Dual Format!"), "SystemMessage");
+            });
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(
+            $"@badge-info=subscriber/47;badges=subscriber/42,bits/25000;color=;display-name={DUMMY_USERNAME};emotes=;flags=;" +
+            $"id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=giftsubbasematch;msg-param-activation-progression-id=activationProgression.abc123;" +
+            @$"msg-param-advertiser-hex-color=#121212;msg-param-advertiser-name=Twitch\sDual\sFormat;msg-param-gift-sub-match-quantity={DUMMY_NUMBER};" +
+            @$"room-id=000000000;subscriber=1;system-msg={DUMMY_USERNAME}\sgot\s{DUMMY_NUMBER}\sbonus\ssubs\ssponsored\sby\sTwitch\sDual\sFormat!;" +
+            $"tmi-sent-ts=1654696969696;user-id={DUMMY_USER_ID};user-type=;vip=0 :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
+        );
+
+        Assert.That(flag.Wait(), Is.True, "Event was not raised!");
+    }
+
+
+    [Test]
+    public async Task OnGiftSubBonusMatchIndividual()
+    {
+        var flag = new Flag();
+
+        _client.OnGiftSubBonusMatchIndividual += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.RecipientUsername, Is.EqualTo($"{DUMMY_USERNAME}2"), "RecipientUsername");
+                Assert.That(e.RecipientUserID, Is.EqualTo($"{DUMMY_USER_ID}2"), "RecipientUserID");
+                Assert.That(e.AdvertiserName, Is.EqualTo("Twitch Dual Format"), "AdvertiserName");
+                Assert.That(e.SystemMessage, Is.EqualTo($"Twitch Dual Format sponsored a Tier 1 Sub to {DUMMY_USERNAME}2!"), "SystemMessage");
+            });
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(
+            $"@badge-info=;badges=sub-gifter/10;color=;display-name={DUMMY_USERNAME};emotes=;flags=;" +
+            $"id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=giftsubbonusmatchindividual;" +
+            $"msg-param-activation-progression-id=activationProgression.abc123;msg-param-advertiser-hex-color=#121212;" +
+            @$"msg-param-advertiser-name=Twitch\sDual\sFormat;msg-param-recipient-display-name={DUMMY_USERNAME}2;msg-param-recipient-id={DUMMY_USER_ID}2;" +
+            $"msg-param-recipient-user-name={DUMMY_USERNAME}2;msg-param-sub-plan=1000;room-id=24070690;subscriber=0;" +
+            @$"system-msg=Twitch\sDual\sFormat\ssponsored\sa\sTier\s1\sSub\sto\s{DUMMY_USERNAME}2!;tmi-sent-ts=1654696969696;user-id={DUMMY_USER_ID};" +
+            $"user-type=;vip=0 :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
+        );
+
+        Assert.That(flag.Wait(), Is.True, "Event was not raised!");
+    }
+
+
+    [Test]
+    public async Task OnGiftSubBonusMatchSummary()
+    {
+        var flag = new Flag();
+
+        _client.OnGiftSubBonusMatchSummary += (s, e) =>
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.Quantity, Is.EqualTo(DUMMY_NUMBER), "Quantity");
+                Assert.That(e.AdvertiserName, Is.EqualTo("Twitch Dual Format"), "AdvertiserName");
+                Assert.That(e.SystemMessage, Is.EqualTo($"Twitch Dual Format is sponsoring 2 Tier 1 subs to {DUMMY_CHANNEL}'s community!"), "SystemMessage");
+            });
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(
+            $"@badge-info=;badges=sub-gifter/10;color=;display-name={DUMMY_USERNAME};emotes=;flags=;" +
+            $"id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=giftsubbonusmatchsummary;msg-param-activation-progression-id=activationProgression.abc123;" +
+            @$"msg-param-advertiser-hex-color=#121212;msg-param-advertiser-name=Twitch\sDual\sFormat;msg-param-gift-sub-match-quantity={DUMMY_NUMBER};" +
+            @$"msg-param-sub-plan=1000;room-id=000000000;subscriber=0;system-msg=Twitch\sDual\sFormat\sis\ssponsoring\s2\sTier\s1\ssubs\sto\s{DUMMY_CHANNEL}'s\scommunity!;" +
+            $"tmi-sent-ts=1654696969696;user-id={DUMMY_USER_ID};user-type=;vip=0 :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
+        );
+
+        Assert.That(flag.Wait(), Is.True, "Event was not raised!");
     }
 }

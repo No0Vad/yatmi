@@ -233,6 +233,21 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
     public event EventHandler<ModiversaryEventArgs> OnModiversary;
 
     /// <summary>
+    /// Fired when a gift subs were matched (Base)
+    /// </summary>
+    public event EventHandler<GiftSubBaseMatchEventArgs> OnGiftSubBaseMatch;
+
+    /// <summary>
+    /// Fired when a gift subs were matched (Individual)
+    /// </summary>
+    public event EventHandler<GiftSubBonusMatchIndividualEventArgs> OnGiftSubBonusMatchIndividual;
+
+    /// <summary>
+    /// Fired when a gift subs were matched (Summary)
+    /// </summary>
+    public event EventHandler<GiftSubBonusMatchSummaryEventArgs> OnGiftSubBonusMatchSummary;
+
+    /// <summary>
     /// Fired when someone is raiding the channel
     /// </summary>
     public event EventHandler<RaidEventArgs> OnRaided;
@@ -1601,6 +1616,48 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Message,
                 ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
                 ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_MONTH)
+            ));
+        }
+        else if (msgId == KnownMessageIds.GIFTSUB_BASE_MATCH)
+        {
+            OnGiftSubBaseMatch?.Invoke(this, new GiftSubBaseMatchEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_ADVERTISER_NAME),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_GIFT_SUB_MATCH_QUANTITY)
+            ));
+        }
+        else if (msgId == KnownMessageIds.GIFTSUB_BONUS_MATCH_INDIVIDUAL)
+        {
+            OnGiftSubBonusMatchIndividual?.Invoke(this, new GiftSubBonusMatchIndividualEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_ADVERTISER_NAME),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_RECIPIENT_USERNAME),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_RECIPIENT_USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_SUB_PLAN)
+            ));
+        }
+        else if (msgId == KnownMessageIds.GIFTSUB_BONUS_MATCH_SUMMARY)
+        {
+            OnGiftSubBonusMatchSummary?.Invoke(this, new GiftSubBonusMatchSummaryEventArgs(
+                IncludeParsedIrcMessagesInEvents ? ircEntity : null,
+                ircEntity.Timestamp,
+                ircEntity.Channel,
+                ircEntity.Tags.GetStringValue(KnownTags.LOGIN),
+                ircEntity.Tags.GetStringValue(KnownTags.USER_ID),
+                ircEntity.Tags.GetStringValue(KnownTags.SYSTEM_MSG),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_ADVERTISER_NAME),
+                ircEntity.Tags.GetIntValue(KnownTags.MSG_PARAM_GIFT_SUB_MATCH_QUANTITY),
+                ircEntity.Tags.GetStringValue(KnownTags.MSG_PARAM_SUB_PLAN)
             ));
         }
         else

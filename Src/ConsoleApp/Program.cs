@@ -72,6 +72,10 @@ internal static class Program
         client.OnOneTapGiftRedeemedNotice += Client_OnOneTapGiftRedeemedNotice;
         client.OnModiversary += Client_OnModiversary;
 
+        client.OnGiftSubBaseMatch += Client_OnGiftSubBaseMatch;
+        client.OnGiftSubBonusMatchIndividual += Client_OnGiftSubBonusMatchIndividual;
+        client.OnGiftSubBonusMatchSummary += Client_OnGiftSubBonusMatchSummary;
+
         if (true)
         {
             UseSimulatedMessages();
@@ -91,6 +95,9 @@ internal static class Program
 
         ColorWriteLine("Shutdown!", ConsoleColor.Yellow);
     }
+
+
+    #region TwitchChatClient Events
 
     internal static void Client_OnPing(object sender, TimestampEventArgs e)
     {
@@ -405,6 +412,23 @@ internal static class Program
         ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [Modiversary] {e.Username} {e.SystemMessage} -- {e.Message}", ConsoleColor.Green);
     }
 
+
+    private static void Client_OnGiftSubBaseMatch(object sender, GiftSubBaseMatchEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [GiftSubBaseMatch] {e.Username} {e.SystemMessage}", ConsoleColor.Magenta);
+    }
+
+    private static void Client_OnGiftSubBonusMatchIndividual(object sender, GiftSubBonusMatchIndividualEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [GiftSubBonusMatchIndividual] {e.Username} {e.SystemMessage}", ConsoleColor.Magenta);
+    }
+
+    private static void Client_OnGiftSubBonusMatchSummary(object sender, GiftSubBonusMatchSummaryEventArgs e)
+    {
+        ColorWriteLine($"[{e.Timestamp}][{e.Channel}] [GiftSubBonusMatchSummary] {e.Username} {e.SystemMessage}", ConsoleColor.Magenta);
+    }
+
+    #endregion
 
 
     private static void UseSimulatedMessages()

@@ -55,6 +55,13 @@ namespace Yatmi.Enum
         public const string MSG_PARAM_BITS_SPENT = "msg-param-bits-spent";
         public const string MSG_PARAM_USER_DISPLAY_NAME = "msg-param-user-display-name";
 
+
+
+        public const string MSG_PARAM_ADVERTISER_NAME = "msg-param-advertiser-name";
+        public const string MSG_PARAM_GIFT_SUB_MATCH_QUANTITY = "msg-param-gift-sub-match-quantity";
+
+
+
         public const string REPLY_PARENT_MSG_ID = "reply-parent-msg-id";
         public const string REPLY_PARENT_MSG_USER_ID = "reply-parent-user-id";
         public const string REPLY_PARENT_MSG_USER_LOGIN = "reply-parent-user-login";

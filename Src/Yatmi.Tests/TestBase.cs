@@ -8,6 +8,7 @@ public class TestBase
     protected const string DUMMY_CHANNEL = "Best_Channel";
     protected const string DUMMY_USERNAME = "Best_User";
     protected const string DUMMY_USER_ID = "00001337";
+    protected const int DUMMY_NUMBER = 123;
 
     /// <summary>
     /// On call, returns a new GUID

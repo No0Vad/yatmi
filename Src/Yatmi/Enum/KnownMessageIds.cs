@@ -61,4 +61,8 @@ public static class KnownMessageIds
     public const string ONE_TAP_GIFT_REDEEMED = "onetapgiftredeemed";
 
     public const string MODIVERSARY = "modiversary";
+
+    public const string GIFTSUB_BASE_MATCH = "giftsubbasematch";
+    public const string GIFTSUB_BONUS_MATCH_INDIVIDUAL = "giftsubbonusmatchindividual";
+    public const string GIFTSUB_BONUS_MATCH_SUMMARY = "giftsubbonusmatchsummary";
 }
