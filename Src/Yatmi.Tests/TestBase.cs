@@ -2,7 +2,7 @@ using Yatmi.Enum;
 
 namespace Yatmi.Tests;
 
-public class TestBase
+public abstract class TestBase
 {
     protected TwitchChatClient _client;
     protected const string DUMMY_CHANNEL = "Best_Channel";

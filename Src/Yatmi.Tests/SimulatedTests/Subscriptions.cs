@@ -14,7 +14,7 @@ public class Subscriptions : TestBase
 
         _client.OnSubscribe += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -22,7 +22,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.Months, Is.EqualTo(1), "Months");
                 Assert.That(e.SubPlanType, Is.EqualTo(subPlan), "SubPlanType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} subscribed at Tier {tierLevel}."), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -46,7 +46,7 @@ public class Subscriptions : TestBase
 
         _client.OnSubscribe += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -54,7 +54,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.Months, Is.EqualTo(1), "Months");
                 Assert.That(e.SubPlanType, Is.EqualTo(SubPlanTypes.Prime), "SubPlanType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} subscribed with Prime."), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -81,7 +81,7 @@ public class Subscriptions : TestBase
 
         _client.OnResubscribe += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -90,7 +90,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.SubPlanType, Is.EqualTo(subPlan), "SubPlanType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} subscribed at Tier {tierLevel}. They've subscribed for 16 months!"), "SystemMessage");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
-            });
+            }
 
             flag.Set();
         };
@@ -113,7 +113,7 @@ public class Subscriptions : TestBase
 
         _client.OnResubscribe += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -121,7 +121,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.Months, Is.EqualTo(23), "Months");
                 Assert.That(e.SubPlanType, Is.EqualTo(SubPlanTypes.Prime), "SubPlanType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} subscribed with Prime. They've subscribed for 23 months!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -147,7 +147,7 @@ public class Subscriptions : TestBase
 
         _client.OnGiftSubscription += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -158,7 +158,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.TotalSubsGifted, Is.EqualTo(50), "TotalSubsGifted");
                 Assert.That(e.SubGiftType, Is.EqualTo(SubGiftTypes.PersonalGift), "SubGiftType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} gifted a Tier {tierLevel} sub to {DUMMY_USERNAME}_Foobar! They have given 50 Gift Subs in the channel!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -185,17 +185,17 @@ public class Subscriptions : TestBase
 
         _client.OnGiftSubscription += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(KnownLogins.AN_ANONYMOUS_GIFTER), "Username");
                 Assert.That(e.UserID, Is.EqualTo(KnownLogins.AN_ANONYMOUS_GIFTER_ID), "UserID");
                 Assert.That(e.RecipientUsername, Is.EqualTo(DUMMY_USERNAME), "RecipientUsername");
                 Assert.That(e.SubGiftType, Is.EqualTo(SubGiftTypes.PersonalGift), "SubGiftType");
-                Assert.That(e.TotalSubsGifted, Is.EqualTo(0), "TotalSubsGifted");
+                Assert.That(e.TotalSubsGifted, Is.Zero, "TotalSubsGifted");
                 Assert.That(e.SubPlanType, Is.EqualTo(subPlan), "SubPlanType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"An anonymous user gifted a Tier {tierLevel} sub to {DUMMY_USERNAME}! "), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -222,7 +222,7 @@ public class Subscriptions : TestBase
 
         _client.OnCommunityGiftSubscription += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -231,7 +231,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.SubscriptionsGifted, Is.EqualTo(5), "SubscriptionsGifted");
                 Assert.That(e.TotalSubscriptionsGifted, Is.EqualTo(123), "TotalSubscriptionsGifted");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} is gifting 5 Tier {tierLevel} Subs to POG's community! They've gifted a total of 123 in the channel!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -241,7 +241,7 @@ public class Subscriptions : TestBase
             var okRecipientUsername = e.RecipientUsername.StartsWith(DUMMY_USERNAME) && e.RecipientUsername.Contains('_');
             var okRecipientUserID = e.RecipientUserID.EndsWith(DUMMY_USER_ID) && !e.RecipientUserID.Contains('_');
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -251,7 +251,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.SubPlanType, Is.EqualTo(subPlan), "SubPlanType");
                 Assert.That(e.SubGiftType, Is.EqualTo(SubGiftTypes.CommunityGift), "SubGiftType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} gifted a Tier {tierLevel} sub to {DUMMY_USERNAME}_{letter++}!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -280,16 +280,16 @@ public class Subscriptions : TestBase
         _client.OnCommunityGiftSubscription += (s, e) =>
         {
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(KnownLogins.AN_ANONYMOUS_GIFTER), "Username");
                 Assert.That(e.UserID, Is.EqualTo(KnownLogins.AN_ANONYMOUS_GIFTER_ID), "UserID");
                 Assert.That(e.SubPlanType, Is.EqualTo(subPlan), "SubPlanType");
                 Assert.That(e.SubscriptionsGifted, Is.EqualTo(5), "SubscriptionsGifted");
-                Assert.That(e.TotalSubscriptionsGifted, Is.EqualTo(0), "TotalSubscriptionsGifted");
+                Assert.That(e.TotalSubscriptionsGifted, Is.Zero, "TotalSubscriptionsGifted");
                 Assert.That(e.SystemMessage, Is.EqualTo($"An anonymous user is gifting 5 Tier {tierLevel} Subs to POG's community!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -299,7 +299,7 @@ public class Subscriptions : TestBase
             var okRecipientUsername = e.RecipientUsername.StartsWith(DUMMY_USERNAME) && e.RecipientUsername.Contains('_');
             var okRecipientUserID = e.RecipientUserID.EndsWith(DUMMY_USER_ID) && !e.RecipientUserID.Contains('_');
 
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(KnownLogins.AN_ANONYMOUS_GIFTER), "Username");
@@ -309,7 +309,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.SubPlanType, Is.EqualTo(subPlan), "SubPlanType");
                 Assert.That(e.SubGiftType, Is.EqualTo(SubGiftTypes.CommunityGift), "SubGiftType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"An anonymous user gifted a Tier {tierLevel} sub to {DUMMY_USERNAME}_{letter++}! "), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -333,14 +333,14 @@ public class Subscriptions : TestBase
 
         _client.OnContinuingGiftSubscription += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.GifterUsername, Is.EqualTo($"{DUMMY_USERNAME}_Foo"), "GifterUsername");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} is continuing the Gift Sub they got from {DUMMY_USERNAME}_Foo!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -362,13 +362,13 @@ public class Subscriptions : TestBase
 
         _client.OnContinuingAnonymousGiftSubscription += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} is continuing the Gift Sub they got from an anonymous user!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -393,14 +393,14 @@ public class Subscriptions : TestBase
 
         _client.OnPrimeUpgradeSubscription += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.SubPlanType, Is.EqualTo(subPlan), "SubPlanType");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME}s converted from a Prime sub to a Tier {tierLevel} sub!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -422,7 +422,7 @@ public class Subscriptions : TestBase
 
         _client.OnCommunityPayForward += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -430,7 +430,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.GifterUsername, Is.EqualTo($"{DUMMY_USERNAME}_Foo"), "GifterUsername");
                 Assert.That(e.GifterUserID, Is.EqualTo($"1{DUMMY_USER_ID}"), "GifterUserID");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} is paying forward the Gift they got from {DUMMY_USERNAME}_Foo to the community!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -453,7 +453,7 @@ public class Subscriptions : TestBase
 
         _client.OnSubscriptionPayForward += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -463,7 +463,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.ReceiverUsername, Is.EqualTo($"{DUMMY_USERNAME}_Bar"), "ReceiverUsername");
                 Assert.That(e.ReceiverUserID, Is.EqualTo($"2{DUMMY_USER_ID}"), "ReceiverUserID");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} is paying forward the Gift they got from {DUMMY_USERNAME}_Foo to {DUMMY_USERNAME}_Bar!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -581,11 +581,11 @@ public class Subscriptions : TestBase
             @$"@badge-info=;badges=;color=;display-name={KnownLogins.AN_ANONYMOUS_GIFTER_DISPLAY};emotes=;flags=;id={NewGuid};login={KnownLogins.AN_ANONYMOUS_GIFTER};mod=0;msg-id=subgift;msg-param-fun-string=FunStringFive;msg-param-gift-months=1;msg-param-months=9;msg-param-origin-id=00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00\s00;msg-param-recipient-display-name={DUMMY_USERNAME}_E;msg-param-recipient-id=5{DUMMY_USER_ID};msg-param-recipient-user-name={DUMMY_USERNAME}_E;msg-param-sub-plan-name=Channel\sSubscription\sPOG;msg-param-sub-plan={ircCode};room-id=00000000;subscriber=0;system-msg=An\sanonymous\suser\sgifted\sa\sTier\s{tierLevel}\ssub\sto\s{DUMMY_USERNAME}_E!\s;tmi-sent-ts=1654696969696;user-id={KnownLogins.AN_ANONYMOUS_GIFTER_ID};user-type= :tmi.twitch.tv {KnownCommands.USERNOTICE} #{DUMMY_CHANNEL}"
         );
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(counter, Is.EqualTo(16), "Counter");
             Assert.That(flag.Wait(), Is.True, "Event was not raised!");
-        });
+        }
     }
 
 
@@ -598,7 +598,7 @@ public class Subscriptions : TestBase
 
         _client.OnGiftSubBaseMatch += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -606,7 +606,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.Quantity, Is.EqualTo(DUMMY_NUMBER), "Quantity");
                 Assert.That(e.AdvertiserName, Is.EqualTo("Twitch Dual Format"), "AdvertiserName");
                 Assert.That(e.SystemMessage, Is.EqualTo($"{DUMMY_USERNAME} got {DUMMY_NUMBER} bonus subs sponsored by Twitch Dual Format!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -630,7 +630,7 @@ public class Subscriptions : TestBase
 
         _client.OnGiftSubBonusMatchIndividual += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -639,7 +639,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.RecipientUserID, Is.EqualTo($"{DUMMY_USER_ID}2"), "RecipientUserID");
                 Assert.That(e.AdvertiserName, Is.EqualTo("Twitch Dual Format"), "AdvertiserName");
                 Assert.That(e.SystemMessage, Is.EqualTo($"Twitch Dual Format sponsored a Tier 1 Sub to {DUMMY_USERNAME}2!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -647,7 +647,7 @@ public class Subscriptions : TestBase
         await _client.SimulateMessagesAsync(
             $"@badge-info=;badges=sub-gifter/10;color=;display-name={DUMMY_USERNAME};emotes=;flags=;" +
             $"id={NewGuid};login={DUMMY_USERNAME};mod=0;msg-id=giftsubbonusmatchindividual;" +
-            $"msg-param-activation-progression-id=activationProgression.abc123;msg-param-advertiser-hex-color=#121212;" +
+            "msg-param-activation-progression-id=activationProgression.abc123;msg-param-advertiser-hex-color=#121212;" +
             @$"msg-param-advertiser-name=Twitch\sDual\sFormat;msg-param-recipient-display-name={DUMMY_USERNAME}2;msg-param-recipient-id={DUMMY_USER_ID}2;" +
             $"msg-param-recipient-user-name={DUMMY_USERNAME}2;msg-param-sub-plan=1000;room-id=24070690;subscriber=0;" +
             @$"system-msg=Twitch\sDual\sFormat\ssponsored\sa\sTier\s1\sSub\sto\s{DUMMY_USERNAME}2!;tmi-sent-ts=1654696969696;user-id={DUMMY_USER_ID};" +
@@ -665,7 +665,7 @@ public class Subscriptions : TestBase
 
         _client.OnGiftSubBonusMatchSummary += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -673,7 +673,7 @@ public class Subscriptions : TestBase
                 Assert.That(e.Quantity, Is.EqualTo(DUMMY_NUMBER), "Quantity");
                 Assert.That(e.AdvertiserName, Is.EqualTo("Twitch Dual Format"), "AdvertiserName");
                 Assert.That(e.SystemMessage, Is.EqualTo($"Twitch Dual Format is sponsoring 2 Tier 1 subs to {DUMMY_CHANNEL}'s community!"), "SystemMessage");
-            });
+            }
 
             flag.Set();
         };

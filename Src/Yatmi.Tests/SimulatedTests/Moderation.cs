@@ -1,4 +1,4 @@
-﻿using Yatmi.Enum;
+using Yatmi.Enum;
 
 namespace Yatmi.Tests.SimulatedTests;
 
@@ -14,13 +14,13 @@ public class Moderation : TestBase
 
         _client.OnUserTimeout += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.TimedoutUsername, Is.EqualTo(DUMMY_USERNAME), "TimedoutUsername");
                 Assert.That(e.TimedoutUserID, Is.EqualTo(DUMMY_USER_ID), "TimedoutUserID");
                 Assert.That(e.Duration, Is.EqualTo(TimeSpan.FromSeconds(seconds)), "Duration");
-            });
+            }
 
             flag.Set();
         };
@@ -39,12 +39,12 @@ public class Moderation : TestBase
 
         _client.OnUserBanned += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.BannedUsername, Is.EqualTo(DUMMY_USERNAME), "BannedUsername");
                 Assert.That(e.BannedUserID, Is.EqualTo(DUMMY_USER_ID), "BannedUserID");
-            });
+            }
 
             flag.Set();
         };
@@ -83,12 +83,12 @@ public class Moderation : TestBase
 
         _client.OnChatMessageDeleted += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.DeletedMessage, Is.EqualTo("Bad message!"), "DeletedMessage");
                 Assert.That(e.DeletedMessageID, Is.EqualTo(guid), "DeletedMessageID");
-            });
+            }
 
             flag.Set();
         };

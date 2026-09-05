@@ -7,11 +7,11 @@ public class General : TestBase
     [Test]
     public void StateTests()
     {
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(_client.IsAnonymous, Is.True, "IsAnonymous");
             Assert.That(_client.IsConnected, Is.False, "IsConnected");
-        });
+        }
     }
 
     [Test]
@@ -97,11 +97,11 @@ public class General : TestBase
 
         _client.OnNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.NoticeType, Is.EqualTo(noticeType), "NoticeType");
-            });
+            }
 
             flag.Set();
         };
@@ -120,14 +120,14 @@ public class General : TestBase
 
         _client.OnNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.NoticeType, Is.EqualTo(KnownMessageIds.HOST_ON), "NoticeType");
                 Assert.That(e.ParsedIrcMessage, Is.Not.Null);
                 Assert.That(e.ParsedIrcMessage.Code, Is.EqualTo(KnownCommands.NOTICE));
                 Assert.That(e.ParsedIrcMessage.Channel, Is.EqualTo(DUMMY_CHANNEL));
-            });
+            }
 
             flag.Set();
         };
@@ -148,12 +148,12 @@ public class General : TestBase
 
         _client.OnNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.NoticeType, Is.EqualTo(KnownMessageIds.HOST_ON), "NoticeType");
                 Assert.That(e.ParsedIrcMessage, Is.Null);
-            });
+            }
 
             flag.Set();
         };
@@ -173,7 +173,7 @@ public class General : TestBase
 
         _client.OnNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.NoticeType, Is.EqualTo(KnownMessageIds.HOST_ON), "NoticeType");
@@ -181,7 +181,7 @@ public class General : TestBase
                 Assert.That(e.ParsedIrcMessage.Code, Is.EqualTo(KnownCommands.NOTICE));
                 Assert.That(e.ParsedIrcMessage.Channel, Is.EqualTo(DUMMY_CHANNEL));
                 Assert.That(e.ParsedIrcMessage.RawIrcMessage, Is.EqualTo(rawIrcMessage));
-            });
+            }
 
             flag.Set();
         };
@@ -201,13 +201,13 @@ public class General : TestBase
 
         _client.OnNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.NoticeType, Is.EqualTo(KnownMessageIds.HOST_ON), "NoticeType");
                 Assert.That(e.ParsedIrcMessage, Is.Not.Null);
                 Assert.That(e.ParsedIrcMessage.RawIrcMessage, Is.Null);
-            });
+            }
 
             flag.Set();
         };
@@ -242,11 +242,11 @@ public class General : TestBase
 
         _client.OnUserJoinedChannel += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.JoinedChannel, Is.EqualTo(DUMMY_CHANNEL), "JoinedChannel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
-            });
+            }
 
             flag.Set();
         };
@@ -265,11 +265,11 @@ public class General : TestBase
 
         _client.OnUserPartedChannel += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.PartedChannel, Is.EqualTo(DUMMY_CHANNEL), "PartedChannel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
-            });
+            }
 
             flag.Set();
         };
@@ -288,7 +288,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -306,7 +306,7 @@ public class General : TestBase
 
                 Assert.That(e.PaidChat, Is.Null, "PaidChat");
                 Assert.That(e.ReplyThread, Is.Null, "ReplyThread");
-            });
+            }
 
             flag.Set();
         };
@@ -334,7 +334,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -349,7 +349,7 @@ public class General : TestBase
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
                 Assert.That(e.MessageType, Is.EqualTo(expectedType), "MessageType");
-            });
+            }
 
             flag.Set();
         };
@@ -371,7 +371,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -385,7 +385,7 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
-            });
+            }
 
             flag.Set();
         };
@@ -407,7 +407,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -428,7 +428,7 @@ public class General : TestBase
                 Assert.That(e.PaidChat.Exponent, Is.EqualTo(2), "PaidChat.Exponent");
                 Assert.That(e.PaidChat.IsPaidSystemMessage, Is.False, "PaidChat.IsPaidSystemMessage");
                 Assert.That(e.PaidChat.Level, Is.EqualTo("ONE"), "PaidChat.Level");
-            });
+            }
 
             flag.Set();
         };
@@ -451,7 +451,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -465,7 +465,7 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
-            });
+            }
 
             flag.Set();
         };
@@ -487,7 +487,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -501,7 +501,7 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
-            });
+            }
 
             flag.Set();
         };
@@ -523,7 +523,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -537,7 +537,7 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
-            });
+            }
 
             flag.Set();
         };
@@ -559,7 +559,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -573,7 +573,7 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.True, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
-            });
+            }
 
             flag.Set();
         };
@@ -595,7 +595,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -610,7 +610,7 @@ public class General : TestBase
                 Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
-            });
+            }
 
             flag.Set();
         };
@@ -640,14 +640,14 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
 
                 Assert.That(e.Emotes.RenderMessageAsHtml(e.Message), Is.EqualTo(expected[counter++]), "HTML");
-            });
+            }
 
             flag.Set();
         };
@@ -679,14 +679,14 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
 
                 Assert.That(e.Emotes.RenderMessageAsHtml(e.Message), Is.EqualTo(expected[counter++]), "HTML");
-            });
+            }
 
             flag.Set();
         };
@@ -712,7 +712,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -727,14 +727,14 @@ public class General : TestBase
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
                 Assert.That(e.Bits, Is.EqualTo(cheer), "Bits");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnBitsChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
@@ -749,7 +749,7 @@ public class General : TestBase
                 Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
                 Assert.That(e.IsMe, Is.False, "IsMe");
                 Assert.That(e.Bits, Is.EqualTo(cheer), "Bits");
-            });
+            }
 
             flag.Set();
         };
@@ -771,13 +771,13 @@ public class General : TestBase
 
         _client.OnElevatedMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Amount, Is.EqualTo(123.45), "Amount");
                 Assert.That(e.Currency, Is.EqualTo("EUR"), "Currency");
-            });
+            }
 
             flag.Set();
         };
@@ -804,7 +804,7 @@ public class General : TestBase
 
         _client.OnChatMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
@@ -828,7 +828,7 @@ public class General : TestBase
                 Assert.That(e.ReplyThread.ThreadID, Is.EqualTo(threadID), "ReplyThread.ThreadID");
                 Assert.That(e.ReplyThread.ThreadUsername, Is.EqualTo($"{DUMMY_USERNAME}_1"), "ReplyThread.ThreadUsername");
                 Assert.That(e.ReplyThread.ThreadUserID, Is.EqualTo($"{DUMMY_USER_ID}_1"), "ReplyThread.ThreadUserID");
-            });
+            }
 
             flag.Set();
         };
@@ -853,12 +853,12 @@ public class General : TestBase
 
         _client.OnWhisperMessage += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
-            });
+            }
 
             flag.Set();
         };
@@ -880,13 +880,13 @@ public class General : TestBase
 
         _client.OnRaided += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Raider, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.RaiderID, Is.EqualTo(DUMMY_USER_ID), "RaiderID");
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Viewers, Is.EqualTo(viewers), "Viewers");
-            });
+            }
 
             flag.Set();
         };
@@ -909,12 +909,12 @@ public class General : TestBase
 
         _client.OnRaidCancelled += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "RaiderID");
-            });
+            }
 
             flag.Set();
         };
@@ -936,23 +936,23 @@ public class General : TestBase
 
         _client.OnHosted += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Hosted, Is.EqualTo(DUMMY_USERNAME), "Hosted");
                 Assert.That(e.Viewers, Is.EqualTo(420), "Viewers");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.NoticeType, Is.EqualTo(KnownMessageIds.HOST_ON), "NoticeType");
-            });
+            }
 
             flag.Set();
         };
@@ -974,11 +974,11 @@ public class General : TestBase
 
         _client.OnNamesList += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Usernames, Is.EqualTo(dummyNames), "Usernames");
-            });
+            }
 
             flag.Set();
         };
@@ -1003,14 +1003,14 @@ public class General : TestBase
 
         _client.OnBitsBadge += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.BitsBadge, Is.EqualTo(bits), "BitsBadge");
                 Assert.That(e.AutoSystemMessage, Is.EqualTo($"{DUMMY_USERNAME} just unlocked the {50000} badge!"), "AutoSystemMessage");
-            });
+            }
 
             flag.Set();
         };
@@ -1068,7 +1068,7 @@ public class General : TestBase
 
         _client.OnRoomState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.EmoteOnly, Is.False, "EmoteOnly");
@@ -1076,7 +1076,7 @@ public class General : TestBase
                 Assert.That(e.FollowersTime, Is.EqualTo(TimeSpan.FromSeconds(0)), "FollowersTime");
                 Assert.That(e.SlowMode, Is.EqualTo(TimeSpan.FromSeconds(0)), "SlowMode");
                 Assert.That(e.SubsOnly, Is.False, "SubsOnly");
-            });
+            }
 
             flag.Set();
         };
@@ -1095,7 +1095,7 @@ public class General : TestBase
 
         _client.OnRoomState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.EmoteOnly, Is.True, "EmoteOnly");
@@ -1103,7 +1103,7 @@ public class General : TestBase
                 Assert.That(e.FollowersTime, Is.EqualTo(TimeSpan.FromMinutes(5)), "FollowersTime");
                 Assert.That(e.SlowMode, Is.EqualTo(TimeSpan.FromSeconds(5)), "SlowMode");
                 Assert.That(e.SubsOnly, Is.True, "SubsOnly");
-            });
+            }
 
             flag.Set();
         };
@@ -1122,45 +1122,45 @@ public class General : TestBase
 
         _client.OnEmoteOnlyState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.IsActive, Is.False, "EmoteOnly");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnFollowersOnlyState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.FollowersOnly, Is.False, "FollowersOnly");
                 Assert.That(e.FollowersTime, Is.EqualTo(TimeSpan.FromSeconds(0)), "FollowersTime");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnSlowModeState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.SlowMode, Is.EqualTo(TimeSpan.FromSeconds(0)), "SlowMode");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnSubscribersOnlyState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.IsActive, Is.False, "SubsOnly");
-            });
+            }
 
             flag.Set();
         };
@@ -1182,45 +1182,45 @@ public class General : TestBase
 
         _client.OnEmoteOnlyState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.IsActive, Is.True, "EmoteOnly");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnFollowersOnlyState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.FollowersOnly, Is.True, "FollowersOnly");
                 Assert.That(e.FollowersTime, Is.EqualTo(TimeSpan.FromMinutes(5)), "FollowersTime");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnSlowModeState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.SlowMode, Is.EqualTo(TimeSpan.FromSeconds(5)), "SlowMode");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnSubscribersOnlyState += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.IsActive, Is.True, "SubsOnly");
-            });
+            }
 
             flag.Set();
         };
@@ -1242,34 +1242,34 @@ public class General : TestBase
 
         _client.OnOneTapStreakStartedNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.GiftId, Is.EqualTo("heart"), "GiftId");
                 Assert.That(e.MsRemaining, Is.EqualTo(10000), "MsRemaining");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnOneTapBreakpointAchievedNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.GiftId, Is.EqualTo("heart"), "GiftId");
                 Assert.That(e.BreakpointNumber, Is.EqualTo(1000), "BreakpointNumber");
                 Assert.That(e.BreakpointThresholdBits, Is.EqualTo(2000), "BreakpointThresholdBits");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnOneTapStreakExpiredNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
@@ -1281,21 +1281,21 @@ public class General : TestBase
                 Assert.That(e.LargestContributorCount, Is.EqualTo(6001), "LargestContributorCount");
                 Assert.That(e.StreakSizeBits, Is.EqualTo(1000), "StreakSizeBits");
                 Assert.That(e.StreakSizeTaps, Is.EqualTo(2000), "StreakSizeTaps");
-            });
+            }
 
             flag.Set();
         };
 
         _client.OnOneTapGiftRedeemedNotice += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.GiftId, Is.EqualTo("heart"), "GiftId");
                 Assert.That(e.BitsSpent, Is.EqualTo(123), "BitsSpent");
                 Assert.That(e.UserDisplayName, Is.EqualTo(DUMMY_USERNAME + 1), "UserDisplayName");
-            });
+            }
 
             flag.Set();
         };
@@ -1355,13 +1355,13 @@ public class General : TestBase
 
         _client.OnModiversary += (s, e) =>
         {
-            Assert.Multiple(() =>
+            using (Assert.EnterMultipleScope())
             {
                 Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
                 Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
                 Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
                 Assert.That(e.Months, Is.EqualTo(123), "Months");
-            });
+            }
 
             flag.Set();
         };
