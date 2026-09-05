@@ -119,6 +119,22 @@ public class ChatMessageEventArgs : BaseEventArgs
     /// </summary>
     public ReplyThreadEntity ReplyThread { get; }
 
+    /// <summary>
+    /// The gifs data of the message.
+    /// </summary>
+    /// <remarks>
+    /// Data format is:
+    /// offset?|giphy-id|giphy-full-url
+    /// Example:
+    /// 0-22|abcdefg|https://media2.giphy.com/media/abcdefg/giphy.gif
+    /// </remarks>
+    public string RawGifs { get; }
+
+    /// <summary>
+    /// The complete URL to the giphy image, if null or empty, try get if yourself from <see cref="RawGifs"/>. Twitch might have changed the format
+    /// </summary>
+    public string GiphyUrl { get; }
+
 
     public ChatMessageEventArgs(
         ParsedIrcMessage parsedIrcMessage,
@@ -139,7 +155,8 @@ public class ChatMessageEventArgs : BaseEventArgs
         string roomId,
         string sourceRoomId,
         PinnedChatPaidEntity paidChat,
-        ReplyThreadEntity replyThread
+        ReplyThreadEntity replyThread,
+        string gifs
     ) : base(
         parsedIrcMessage,
         timestamp
@@ -193,6 +210,21 @@ public class ChatMessageEventArgs : BaseEventArgs
             SourceRoomId = sourceRoomId;
             PaidChat = paidChat;
             ReplyThread = replyThread;
+            RawGifs = gifs;
+
+            if (!string.IsNullOrEmpty(RawGifs))
+            {
+                var rawGifsSpan = RawGifs.AsSpan();
+                var sIndex = rawGifsSpan.IndexOf('|');
+                var eIndex = rawGifsSpan.LastIndexOf('|');
+
+                if (sIndex != -1 && eIndex != -1)
+                {
+                    var giphyId = rawGifsSpan.Slice(sIndex + 1, eIndex - sIndex - 1).ToString();
+
+                    GiphyUrl = $"https://giphy.com/media/{giphyId}/giphy.gif";
+                }
+            }
         }
     }
 }

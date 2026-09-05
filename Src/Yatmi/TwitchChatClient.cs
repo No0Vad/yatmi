@@ -1136,7 +1136,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                     ircEntity.Tags.GetStringValue(KnownTags.ROOM_ID),
                     ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
                     PinnedChatPaidEntity.TryCreate(ircEntity.Tags),
-                    ReplyThreadEntity.TryCreate(ircEntity.Tags)
+                    ReplyThreadEntity.TryCreate(ircEntity.Tags),
+                    ircEntity.Tags.GetStringValue(KnownTags.GIFS)
                 );
             });
 
@@ -1287,7 +1288,8 @@ public sealed partial class TwitchChatClient : IAsyncDisposable
                 ircEntity.Tags.GetStringValue(KnownTags.ROOM_ID),
                 ircEntity.Tags.GetStringValue(KnownTags.SOURCE_ROOM_ID),
                 PinnedChatPaidEntity.TryCreate(ircEntity.Tags), // Can't be both announcement AND paid to my knowledge, but just in case.
-                ReplyThreadEntity.TryCreate(ircEntity.Tags) // Can't be both announcement AND reply to my knowledge, but just in case.
+                ReplyThreadEntity.TryCreate(ircEntity.Tags), // Can't be both announcement AND reply to my knowledge, but just in case.
+                null
             ));
         }
         else if (msgId == KnownMessageIds.SUB)

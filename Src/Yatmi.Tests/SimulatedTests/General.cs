@@ -847,6 +847,44 @@ public class General : TestBase
     }
 
     [Test]
+    public async Task OnChatMessage_WithGifs()
+    {
+        var flag = new Flag();
+
+        _client.OnChatMessage += (s, e) =>
+        {
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(e.Username, Is.EqualTo(DUMMY_USERNAME), "Username");
+                Assert.That(e.Channel, Is.EqualTo(DUMMY_CHANNEL), "Channel");
+                Assert.That(e.UserID, Is.EqualTo(DUMMY_USER_ID), "UserID");
+                Assert.That(e.Message, Is.EqualTo("Hello World!"), "Message");
+
+                Assert.That(e.IsVip, Is.True, "IsVip");
+                Assert.That(e.IsSubscriber, Is.True, "IsSubscriber");
+                Assert.That(e.IsFounder, Is.False, "IsFounder");
+                Assert.That(e.IsModerator, Is.False, "IsModerator");
+                Assert.That(e.IsBroadcaster, Is.False, "IsBroadcaster");
+                Assert.That(e.IsFirstMessage, Is.False, "IsFirstMessage");
+                Assert.That(e.IsMe, Is.False, "IsMe");
+                Assert.That(e.RawGifs, Is.Not.Empty, "RawGifs");
+                Assert.That(e.GiphyUrl, Is.EqualTo("https://giphy.com/media/a764YHoVKH85vERT3n/giphy.gif"), "RawGifs");
+            }
+
+            flag.Set();
+        };
+
+        await _client.SimulateMessagesAsync(
+            "@badge-info=subscriber/1;badges=vip/1,subscriber/1;color=#121212;" +
+            $"display-name={DUMMY_USERNAME};emotes=;first-msg=0;flags=;id={NewGuid};mod=0;" +
+            $"room-id=00000000;subscriber=1;gifs=0-22|a764YHoVKH85vERT3n|https://media2.giphy.com/media/a764YHoVKH85vERT3n/giphy.gif?ep=v1_gifs_trending;tmi-sent-ts=1656969696969;turbo=0;user-id={DUMMY_USER_ID};" +
+            $"user-type= :{DUMMY_USERNAME}!{DUMMY_USERNAME}@{DUMMY_USERNAME}.tmi.twitch.tv {KnownCommands.PRIVMSG} #{DUMMY_CHANNEL} :Hello World!"
+        );
+
+        Assert.That(flag.Wait(), Is.True, "Event was not raised!");
+    }
+
+    [Test]
     public async Task OnWhisperMessage()
     {
         var flag = new Flag();

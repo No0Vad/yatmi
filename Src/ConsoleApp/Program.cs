@@ -81,13 +81,13 @@ internal static class Program
             UseSimulatedMessages();
         }
 
-        //await client.ConnectAsync();
-        //await client.JoinChannelAsync(Env.Channel.Value);
+        await client.ConnectAsync();
+        await client.JoinChannelAsync(Env.Channel.Value);
 
         //_ = Task.Delay(10_000).ContinueWith(async _ =>
         //{
         //    Console.WriteLine("Force disconnect for testing!");
-        //    await _client.DisconnectTestAsync();
+        //    await _client.DisconnectAsync();
         //});
 
         ColorWriteLine("Press any key to exit...", ConsoleColor.Cyan);
@@ -212,7 +212,8 @@ internal static class Program
             $"| {e.Username} (ID:{e.UserID}) wrote:",
             "["+e.MessageType + "]",
             e.IsMe ? "/me" : "",
-            e.Message
+            e.Message,
+            !string.IsNullOrEmpty(e.RawGifs) ? (e.GiphyUrl ?? e.RawGifs) : ""
         }.Where(a => a.Length > 0)));
 
         if (!_client.IsAnonymous && e.Message.StartsWith("!hello there"))
